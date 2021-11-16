@@ -55,8 +55,71 @@
         ></script> -->
     </head>
     <body>
-        Hi!
-        <div id="map" style="width: 500px; height: 400px"></div>
+        <img id="main_logo" src="/images/restraunt_png.png" />
+        <div id="my_page_div">
+            <div></div>
+            <img id="close" src="/images/close.png" />
+
+            <div class="item">
+                <label>주문상태</label>
+            </div>
+            <div class="item">
+                <span>메뉴이름</span>
+                <br />
+                <span>가격</span><br />
+                <span>예상 도착 시간</span><br />
+                <span>음식점이름</span><br />
+            </div>
+            <div class="item">
+                <span id="name"> 이름 : 김동훈 </span>
+                <br />
+                <br />
+                <span id="phone_number"> 핸드폰번호 : 010-1234-5678 </span>
+            </div>
+            <div class="item">
+                <input type="text" placeholder="ex) 홍길동" />
+                <button>수정하기</button>
+                <br />
+                <br />
+                <input type="text" placeholder="ex) 010-1234-5678" />
+                <button>수정하기</button>
+            </div>
+            <button id="cancel_order" class="button">주문취소</button>
+        </div>
+        <div id="container">
+            <div class="div" id="side">
+                <img id="option" src="/images/option.png" />
+                <div id="option_div">
+                    <img id="close" src="/images/close.png" />
+                    <!-- <button id="close"></button> -->
+                    <button class="button b" id="singup">회원가입</button>
+                    <button class="button b" id="logout">로그아웃</button>
+                    <button class="button b" id="login">로그인</button>
+                    <button class="button b" id="my_page">마이페이지</button>
+                </div>
+                <div class="div">
+                    <!-- 사이드 내비 게이션 -->
+                    <div id="category">
+                        <button class="button" id="chicken">치킨</button>
+                        <button class="button" id="pizza">피자</button>
+                        <button class="button" id="school food">분식</button>
+                        <button class="button" id="meat">고기</button>
+                        <!-- <button></button>
+                        <button></button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="div" id="main">
+                <input
+                    id="search_restraunt"
+                    type="text"
+                    size="70"
+                    placeholder="찾고자 하시는 음식점을 검색하세요."
+                /><button id="search">검색</button>
+                <div id="map" style="width: 800px; height: 700px"></div>
+            </div>
+        </div>
+
         <!-- <script
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffab54e001746890f92bd6f557f44381"
@@ -107,6 +170,29 @@
             } else {
                 alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
             }
+        </script>
+        <script>
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "firebase/app";
+            import { getAnalytics } from "firebase/analytics";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                apiKey: "AIzaSyBHcQEZEGb4dUZoyYqC98ChSfkKfi0BRUs",
+                authDomain: "restaurantinme.firebaseapp.com",
+                projectId: "restaurantinme",
+                storageBucket: "restaurantinme.appspot.com",
+                messagingSenderId: "429432477693",
+                appId: "1:429432477693:web:758dae2b839e9b294e6b94",
+                measurementId: "G-88E9EB3MVC",
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
         </script>
     </body>
 </html>
