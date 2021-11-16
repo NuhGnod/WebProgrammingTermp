@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Welcome to Firebase Hosting</title>
+        <link href="./main.css" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+        <!-- <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"
+        ></script> -->
+        <!-- <script defer src="/__/firebase/9.4.1/firebase-app-compat.js"></script>
+        <script defer src="/__/firebase/9.4.1/firebase-auth-compat.js"></script>
+        <script
+            defer
+            src="/__/firebase/9.4.1/firebase-database-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/9.4.1/firebase-firestore-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/9.4.1/firebase-functions-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/9.4.1/firebase-messaging-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/9.4.1/firebase-storage-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/9.4.1/firebase-analytics-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/9.4.1/firebase-remote-config-compat.js"
+        ></script>
+        <script
+            defer
+            src="/__/firebase/9.4.1/firebase-performance-compat.js"
+        ></script>
+       
+        <script defer src="/__/firebase/init.js?useEmulator=true"></script> -->
+        <!-- <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffab54e001746890f92bd6f557f44381"
+        ></script> -->
+    </head>
+    <body>
+        Hi!
+        <div id="map" style="width: 500px; height: 400px"></div>
+        <!-- <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffab54e001746890f92bd6f557f44381"
+        ></script> -->
+        <script
+            type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffab54e001746890f92bd6f557f44381&libraries=services"
+        ></script>
+        <script>
+            if (navigator.geolocation) {
+                //위치 정보를 얻기
+                navigator.geolocation.getCurrentPosition(async function (pos) {
+                    console.log("위도 " + pos.coords.latitude);
+                    console.log("경도 " + pos.coords.longitude);
+                    console.log(typeof pos.coords);
+                    var container = document.getElementById("map");
+                    var options = {
+                        center: new kakao.maps.LatLng(36.3635948, 127.3490568),
+                        level: 3,
+                    };
+                    var places = new kakao.maps.services.Places();
+
+                    // var callback = function (result, status) {
+                    //     console.log(`##`);
+                    //     if (status === kakao.maps.services.Status.OK) {
+                    //         console.log(result[0].x);
+                    //         console.log(result[0].y);
+                    //     }
+                    // };
+                    async function call() {
+                        await places.keywordSearch(
+                            "충남대학교",
+                            function (result, status) {
+                                console.log(`##`);
+                                if (status === kakao.maps.services.Status.OK) {
+                                    console.log(result[0].x);
+                                    console.log(result[0].y);
+                                }
+                            }
+                        );
+                        console.log("#");
+                    }
+                    await call();
+                    console.log(options.center);
+                    var map = new kakao.maps.Map(container, options);
+                    console.log(options.center);
+                });
+            } else {
+                alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
+            }
+        </script>
+    </body>
+</html>
