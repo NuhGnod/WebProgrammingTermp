@@ -9,18 +9,16 @@ function click_cancel() {
         return;
     }
 
-    //취소하면, 메뉴화면으로 이동
-    open("./menu.html");
-    close();
+    //취소하면, 이전페이지로이동.
+    history.go(-1);
 }
 function click_pay() {
-    //결제 완료후 현재 창을닫고, 로컬스토리지의 item을 지운다.
+    //결제 완료후 메인페이지로 이동, 로컬스토리지의 item을 지운다.
     alert("결제되었습니다.");
 
     localStorage.removeItem("table_info");
     localStorage.removeItem("restraunt_info");
-
-    close();
+    open("./index.html", "_self");
 }
 cancel.addEventListener("click", click_cancel);
 pay.addEventListener("click", click_pay);

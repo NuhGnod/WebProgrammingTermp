@@ -96,8 +96,7 @@ function click_login() {
     //로그인 버튼 클릭시 실행되는 함수, login페이지로 이동한다.
     //이미 로그인 되어있다면, alert창을 띄운다.
 
-    open("./login.html");
-    close();
+    open("./login.html", "_self");
 }
 function click_logout() {
     //로그아웃한다. 모든 스토리지의 item을 제거한다.
@@ -105,17 +104,16 @@ function click_logout() {
 }
 function click_signup() {
     //회원가입버튼을 누르면 실행되고, 회원가입 하는 페이지로 이동한다.
-    open("./signup.html");
-    close();
+    open("./signup.html", "_self");
+    // close();
 }
 function click_li() {
     //검색결과로 보여지는 목록중 하나를 클릭 했을 시,
     // console.log(this);
-    open("./table.html"); //그 가게의 테이블 현황(모습)페이지로 넘어간다.
     let info = [];
 
     localStorage.setItem("restraunt_info", this.id);
-    // console.log(opener.document.referrer);
+    open("./table.html", "_self"); //그 가게의 테이블 현황(모습)페이지로 넘어간다.
 }
 function click_option() {
     //옵션 설정 (이미지) 누르기

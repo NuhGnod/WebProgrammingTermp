@@ -10,10 +10,13 @@
     <body>
         <div id="signup_box" class="center">
             <br />
+            <!-- 메인로고 -->
             <img src="/images/restraunt_png.png" id="main_logo" />
-            <h2>회원가입정보</h2>
+            <h2>회원가입정보 <br />모든 입력은 영어 또는 숫자만 가능합니다.</h2>
             <hr />
-
+            <!-- 회원가입 입력 영억 -->
+            <!-- 아이디는 중 복될 수 없다. -->
+            <!-- 모든 입력은 영어와 숫자로만 이뤄진다. -->
             <table>
                 <tr></tr>
                 <tr>
@@ -28,7 +31,7 @@
                 <tr>
                     <td>*아이디</td>
                     <td><input type="text" id="id" required /></td>
-                    <td><button>중복확인</button></td>
+                    <td><button id="check_id">중복확인</button></td>
                 </tr>
                 <tr>
                     <td>*비밀번호</td>
@@ -42,7 +45,7 @@
                     <td>*닉네임</td>
                     <td><input type="text" id="nickname" required /></td>
                 </tr>
-
+                <!-- 이 웹은 가게주인, 가게 이용자 부분으로 나뉘기 떄문에, 가입하는 user를 분류하여 확인한다. -->
                 <tr>
                     <td>*회원분류</td>
                     <td>
@@ -61,8 +64,11 @@
             </table>
             <br />
             <br /><br />
+            <!-- 유효성검사가 통과된후 회원가입되며, 메인페이지로 이동한다.  -->
             <input type="submit" value="회원가입" id="signup" />
+            <!-- 취소버튼을 누르면 이전페이지로 이동한다. -->
             <button id="cancel">취소</button>
         </div>
+        <script src="./signup.js"></script>
     </body>
 </html>
