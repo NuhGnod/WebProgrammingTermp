@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- 웹의 가장 메인인 페이지 -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Welcome to RestaurantInMe System</title>
@@ -55,22 +56,28 @@
         ></script> -->
     </head>
     <body>
+        <!-- 메인로고 -->
         <img id="main_logo" src="/images/restraunt_png.png" />
-
+        <!-- 전체 영역 -->
         <div id="container">
+            <!-- 왼쪽 사이드 영역 -->
             <div class="div" id="side">
                 <div id="option_div">
+                    <!-- 옵션 설정창 -->
+                    <!-- 회원가입, 로그아웃, 로그인, 마이페이지 등을 확인할수 있다. -->
                     <img
                         class="close"
                         id="close_option"
                         src="/images/close.png"
                     />
-                    <!-- <button id="close"></button> -->
                     <button class="button b" id="singup">회원가입</button>
                     <button class="button b" id="logout">로그아웃</button>
                     <button class="button b" id="login">로그인</button>
                     <button class="button b" id="my_page">마이페이지</button>
+
                     <div id="my_page_div_wrapper">
+                        <!-- 옵션 설정창의 마이페이지창 -->
+                        <!-- 내 정보가 보여지고, 수정하는 버튼, 주문 현황이 보여진다. -->
                         <div id="my_page_div">
                             <div></div>
                             <img
@@ -110,6 +117,7 @@
                             </div>
                             <button id="cancel_order" class="button">
                                 주문취소
+                                <!-- 주문 후 5분 내로만 취소가능 -->
                             </button>
                         </div>
                     </div>
@@ -120,23 +128,29 @@
                 <div class="div">
                     <!-- 사이드 내비 게이션 -->
                     <div id="category">
+                        <!-- 지도에 보여질 가게의 카테고리를 선택한다. -->
                         <button class="button" id="chicken">치킨</button>
                         <button class="button" id="pizza">피자</button>
                         <button class="button" id="school food">분식</button>
                         <button class="button" id="meat">고기</button>
-                        <!-- <button></button>
-                        <button></button> -->
                     </div>
                 </div>
             </div>
+            <!-- 화면의 가운데 영역 -->
             <div class="div" id="main">
+                <!-- 상단에 위치한 검색바로 찾고자 하는 가게를 검색하거나, 주소를 입력한다. -->
                 <input
                     id="search_restraunt"
                     type="text"
                     size="70"
                     placeholder="찾고자 하시는 음식점을 검색하세요."
-                /><button id="search">검색</button>
+                />
+                <button id="search">검색</button>
+
                 <div id="map"></div>
+                <!-- 검색바로 검색한 가게와 일치하는 것들이 보여지는 영역이다. -->
+                <!-- 여러개가 검색 될수 있으므로 한번에 최대 15개까지 보여지고, -->
+                <!-- 버튼을 통해 다음, 이전 페이지로 확일 할 수있다. -->
                 <div id="search_list">
                     검색된 음식점 리스트영역
                     <ul>

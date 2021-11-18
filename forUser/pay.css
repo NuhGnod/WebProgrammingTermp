@@ -16,12 +16,21 @@ span {
     margin: 30px;
 }
 button {
-    left: 45%;
+    /* left: 45%;
     top: 50%;
-    position: relative;
+    position: relative; */
     margin-top: 10px;
     margin-right: 10px;
     font-size: large;
     width: 100px;
     height: 60px;
+}
+ul {
+    display: inline-block;
+    /* width: 300px; */
+    margin-left: auto;
+    margin-right: auto;
+}
+#bottom_div {
+    text-align: center;
 }

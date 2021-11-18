@@ -1,11 +1,13 @@
 function init() {
+    //메뉴페이지 초기상태설정
     let info = localStorage.getItem("restraunt_info");
     info = JSON.parse(info);
     let place_name = info.place_name;
     let table_info = localStorage.getItem("table_info");
-    let name = document.getElementById("place_name");
+
+    let name = document.getElementById("place_name"); //선택한 가게의 이름을 보여준다.
     name.innerHTML = place_name;
-    let table_num = document.getElementById("table_info");
+    let table_num = document.getElementById("table_info"); //몇번 좌석인지 알려준다.
     table_num.innerHTML = table_info;
 }
 init();
@@ -23,6 +25,7 @@ function click_cancel() {
     close();
 }
 function click_next() {
+    //메뉴들을 선택하고, 결제페이지로 넘어간다.
     open("./pay.html");
     close();
 }

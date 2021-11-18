@@ -44,6 +44,7 @@ function click_cancel() {
     close();
 }
 function click_next() {
+    //좌석 선택후, 메뉴페이지로 이동한다.
     let table_info = document.getElementById("table_info").innerHTML;
     localStorage.setItem("table_info", table_info);
     open("./menu.html");

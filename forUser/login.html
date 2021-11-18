@@ -10,10 +10,12 @@
     <body>
         <div id="login_box" class="center" class="login">
             <div class="div">
+                <!-- 메인로고 -->
                 <img id="main_logo" src="/images/restraunt_png.png" />
             </div>
 
             <div class="loginbox">
+                <!-- //로그인 영역 -->
                 <div>
                     아이디 : <input type="text" id="id" required /><br /><br />
                     비밀번호 :
@@ -22,13 +24,19 @@
                         for="auto_login"
                         >자동로그인</label
                     >
+                    <!-- 자동로그인을 체크하면 앞으로 방문할떄 자동으로 로그인 -->
+                    <!-- 되어있는다. -->
                 </div>
                 <br />
+
                 <div>
+                    <!-- 로그인버튼 -->
                     <input type="submit" value="로그인" id="login" />
+                    <!-- 회원가입을 하지 않았을 경우, 회원가입을 할 수 있다. -->
                     <button id="signup">회원가입</button>
                 </div>
             </div>
         </div>
+        <script src="./login.js"></script>
     </body>
 </html>
