@@ -1,0 +1,27 @@
+#main_logo {
+    display: block;
+    margin: 50px auto;
+    width: 100px;
+    height: 100px;
+}
+div {
+    text-align: center;
+}
+label,
+input,
+span {
+    font-size: x-large;
+    height: 60px;
+    width: 700px;
+    margin: 30px;
+}
+button {
+    left: 45%;
+    top: 50%;
+    position: relative;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: large;
+    width: 100px;
+    height: 60px;
+}

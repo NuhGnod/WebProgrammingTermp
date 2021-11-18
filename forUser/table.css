@@ -1,0 +1,78 @@
+#container {
+    width: 100%;
+    text-align: center;
+}
+#body {
+    display: inline-block;
+    width: 60vw;
+    height: 70vh;
+    /* border: 1px solid black; */
+    width: 80vw;
+}
+#main_logo {
+    display: block;
+    margin: 50px auto;
+    width: 100px;
+    height: 100px;
+}
+#place_name_div {
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+}
+span {
+    margin: 10px;
+}
+#table {
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    margin: 10px;
+    border: 1px solid black;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    display: grid;
+}
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    /* padding: 10px; */
+    height: 8vh;
+    /* border: 1px solid steelblue; */
+}
+.item:hover {
+    cursor: pointer;
+}
+.item:nth-child(3) {
+    grid-column: span 2;
+}
+.item:nth-child(26) {
+    grid-column: span 2;
+}
+button {
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: large;
+    width: 100px;
+    height: 60px;
+}
+.green {
+    background: green;
+}
+.red {
+    background: lightcoral;
+}
+.yellow {
+    background: yellow;
+}
+.base {
+    border: 1px solid black;
+    /* width: 50px; */
+}
+.entrance {
+    width: 50px;
+}
+.exit {
+    width: 50px;
+}
