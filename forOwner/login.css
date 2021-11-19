@@ -4,7 +4,9 @@
     width: 100px;
     height: 100px;
 }
-
+#main_logo:hover {
+    cursor: pointer;
+}
 .center {
     text-align: center;
     margin-left: auto;

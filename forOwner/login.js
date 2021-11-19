@@ -3,7 +3,11 @@ let pw = document.getElementById("pw");
 let auto_login = document.getElementById("auto_login");
 let login = document.getElementById("login");
 let signup = document.getElementById("signup");
+let main_logo = document.getElementById("main_logo");
 
+function click_logo() {
+    open("./index.html", "_self");
+}
 function click_login() {
     //로그인 버튼 클릭시 실행되는 함수.
     //유효성검사를 통과하면 로그인되고, 메인 페이지로 이동한다.
@@ -35,5 +39,7 @@ function click_signup() {
     //회원가입 페이지로 이동한다.
     open("./signup.html", "_self");
 }
+main_logo.addEventListener("click", click_logo);
+
 login.addEventListener("click", click_login);
 signup.addEventListener("click", click_signup);
