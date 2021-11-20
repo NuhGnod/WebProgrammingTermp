@@ -1,0 +1,44 @@
+#main_logo {
+    display: block;
+    margin: 50px auto;
+    width: 100px;
+    height: 100px;
+}
+h2 {
+    text-align: center;
+}
+
+.parent {
+    /* margin-top: 100px;    */
+    text-align: center;
+    /* border: 1px solid black; */
+    width: 90%;
+    margin: 0 auto;
+}
+
+.first {
+    /* padding: 10px; */
+    display: inline-block;
+    /* border: 1px solid red; */
+    /* float: left; */
+    /* width: 20%; */
+    box-sizing: border-box;
+}
+
+.second {
+    padding: 10px;
+
+    display: inline-block;
+    /* border: 1px solid green; */
+    /* float: left; */
+    /* margin-left: 5%; */
+    /* width: 30%; */
+    box-sizing: border-box;
+}
+input {
+    width: 300px;
+}
+#button_div {
+    text-align: center;
+    margin: 0 auto;
+}

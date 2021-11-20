@@ -1,0 +1,126 @@
+#main_logo {
+    display: block;
+    margin: 50px auto;
+    width: 100px;
+    height: 100px;
+}
+
+/* .div {
+    border: 1px solid blue;
+} */
+#container {
+    display: flex;
+}
+#side {
+    margin-left: 200px;
+    width: 20vw;
+    /* border: 1px solid blue; */
+}
+#category {
+    margin-top: 100px;
+    margin-left: 50px;
+    align-items: center;
+    position: static;
+}
+.button {
+    /* margin-left: 10px; */
+    background: cornflowerblue;
+    margin-bottom: 20px;
+    width: 100px;
+    height: 50px;
+    display: block;
+}
+.button.b {
+    margin-left: 10px;
+    background: cornflowerblue;
+    margin-bottom: 30px;
+    width: 100px;
+    height: 50px;
+    display: block;
+}
+#search {
+    padding-bottom: 2px;
+    margin-left: 15px;
+    height: 56px;
+    width: 80px;
+}
+#main {
+    width: 70vw;
+}
+
+#search_restraunt {
+    text-align: center;
+    font-size: x-large;
+    height: 50px;
+}
+
+#search_list {
+    /* text-align: center; */
+    /* margin: 0 auto; */
+    padding: 30px;
+    font-size: x-large;
+    display: inline-block;
+    width: 700px;
+    margin: 30px;
+    /* border: 1px solid black; */
+}
+#my_page_div_wrapper {
+    display: none;
+}
+#my_page_div {
+    /* display: none; */
+    padding: 20px;
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    background: darkolivegreen;
+}
+.restraunt_info {
+    border: 1px black solid;
+    display: block;
+    /* margin-bottom: 1px; */
+}
+.restraunt_info:hover {
+    cursor: pointer;
+}
+#cancel_order {
+    background: darkslateblue;
+
+    margin-left: auto;
+    display: block;
+}
+#option {
+    width: 70px;
+    margin-left: 50px;
+    z-index: 1;
+    position: relative;
+    /* align-items: end; */
+    /* align-self: center; */
+    /* margin-left: auto; */
+}
+#option_div {
+    position: static;
+    display: none;
+    z-index: 2;
+    position: absolute;
+    width: 300px;
+    height: 600px;
+    background: chocolate;
+}
+img:hover {
+    cursor: pointer;
+}
+.close {
+    margin-top: 30px;
+    margin-right: 30px;
+    margin-left: auto;
+    display: block;
+    height: 30px;
+    width: 30px;
+}
+
+.li:hover {
+    cursor: pointer;
+}

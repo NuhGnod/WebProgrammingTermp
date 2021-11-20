@@ -33,6 +33,8 @@ function click_login() {
     } else {
         alert(`아이디 또는 비밀번호가 일치하지 않습니다.`);
     }
+    //테스트를 위해 메인으로 돌아가기 위해 구현해논것, 나중엔 지운다.
+    open("./index.html", "_self");
 }
 function click_signup() {
     //회원가입 클릭시 실행되는 함수.
