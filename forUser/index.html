@@ -6,7 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Welcome to RestaurantInMe System</title>
         <link href="./main.css" rel="stylesheet" />
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
@@ -14,7 +16,7 @@
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"
         ></script> -->
-        <!-- <script defer src="/__/firebase/9.4.1/firebase-app-compat.js"></script>
+        <script defer src="/__/firebase/9.4.1/firebase-app-compat.js"></script>
         <script defer src="/__/firebase/9.4.1/firebase-auth-compat.js"></script>
         <script
             defer
@@ -48,8 +50,8 @@
             defer
             src="/__/firebase/9.4.1/firebase-performance-compat.js"
         ></script>
-       
-        <script defer src="/__/firebase/init.js?useEmulator=true"></script> -->
+
+        <script defer src="/__/firebase/init.js?useEmulator=true"></script>
         <!-- <script
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffab54e001746890f92bd6f557f44381"
@@ -57,7 +59,7 @@
     </head>
     <body>
         <!-- 메인로고 -->
-        <img id="main_logo" src="/images/restraunt_png.png" />
+        <img id="main_logo" alt="메인로고" src="/images/restraunt_png.png" />
         <!-- 전체 영역 -->
         <div id="container">
             <!-- 왼쪽 사이드 영역 -->
@@ -66,6 +68,7 @@
                     <!-- 옵션 설정창 -->
                     <!-- 회원가입, 로그아웃, 로그인, 마이페이지 등을 확인할수 있다. -->
                     <img
+                        alt="close"
                         class="close"
                         id="close_option"
                         src="/images/close.png"
@@ -81,6 +84,7 @@
                         <div id="my_page_div">
                             <div></div>
                             <img
+                                alt="close"
                                 class="close"
                                 id="close_my_page"
                                 src="/images/close.png"
@@ -123,7 +127,7 @@
                     </div>
                 </div>
 
-                <img id="option" src="/images/option.png" />
+                <img alt="option" id="option" src="/images/option.png" />
 
                 <div class="div">
                     <!-- 사이드 내비 게이션 -->

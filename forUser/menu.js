@@ -15,19 +15,19 @@ let cancel = document.getElementById("cancel");
 let next = document.getElementById("next");
 
 function click_cancel() {
-    //취소버튼을 눌렀을 떄, 현재 화면이 닫힌다.
+    //취소버튼을 눌렀을 떄, 이전 페이지로 돌아간다.
     if (confirm("입력한 정보가 모두 사라집니다. 취소하시겠습니까?") == true) {
         // alert("");
     } else {
         return;
     }
-    open("./table.html");
-    close();
+    history.go(-1);
+    // close();
 }
 function click_next() {
     //메뉴들을 선택하고, 결제페이지로 넘어간다.
-    open("./pay.html");
-    close();
+    open("./pay.html", "_self");
+    // close();
 }
 cancel.addEventListener("click", click_cancel);
 next.addEventListener("click", click_next);
