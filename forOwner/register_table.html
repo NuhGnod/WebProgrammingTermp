@@ -5,8 +5,70 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <link href="register_table.css" rel="stylesheet" />
     </head>
     <body>
-        내부 모습 등록하기
+        <!-- 내부 모습 등록하기 -->
+        <img alt="메인로고" id="main_logo" src="/images/restraunt_png.png" />
+        <div id="place_name_div">
+            <span id="place_name"></span> <span id="table_info"></span>
+        </div>
+        <div class="parent">
+            <div class="first">
+                <span contenteditable="true">n</span>번 테이블
+            </div>
+
+            <div class="second">입<br />구</div>
+
+            <div class="third">출<br />구</div>
+
+            <div class="fourth">주방</div>
+
+            <div class="fifth">화장실</div>
+            <div class="sixth"><span contenteditable="true">n</span>번 룸</div>
+            <button id="next">다음</button>
+            <button id="cancel">취소</button>
+        </div>
+
+        <div class="container">
+            <div id="body">
+                <div id="table">
+                    <div class="item red">1번테이블</div>
+                    <div class="item red">11번테이블</div>
+                    <div class="item base kitchen">주방</div>
+                    <div class="item green">1번 룸</div>
+                    <div class="item green">1번 룸</div>
+                    <div class="item green">2번 룸</div>
+                    <div class="item green">2번 룸</div>
+
+                    <div class="item green">2번테이블</div>
+                    <div class=""></div>
+                    <div class=""></div>
+                    <div class=""></div>
+                    <div class=""></div>
+                    <div class=""></div>
+                    <div class=""></div>
+                    <div class=""></div>
+
+                    <div class="item base entrance">입구</div>
+                    <div class="item yellow">12번테이블</div>
+                    <div class="item red">13번 테이블</div>
+                    <div class=""></div>
+                    <div class="item green">8번테이블</div>
+                    <div class="item green">9번테이블</div>
+                    <div class="item green">10번테이블</div>
+                    <div class=""></div>
+
+                    <div class="item red">3번테이블</div>
+                    <div class="item green">4번테이블</div>
+                    <div class="item base toilet">화장실</div>
+                    <div class="item red">5번테이블</div>
+                    <div class="item red">6번테이블</div>
+                    <div class="item yellow">7번테이블</div>
+                    <div class=""></div>
+                </div>
+            </div>
+        </div>
+        <script src="./register_table.js"></script>
     </body>
 </html>

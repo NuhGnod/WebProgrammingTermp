@@ -1,0 +1,29 @@
+#main_logo {
+    display: block;
+    margin: 50px auto;
+    width: 100px;
+    height: 100px;
+}
+#place_name_div {
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    margin: 50px auto;
+}
+.parent {
+    display: flex;
+    /* height: 9vh; */
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+input {
+    margin: 10px;
+}
+.list {
+    text-align: center;
+    border: red 1px solid;
+    display: block;
+    margin: 50px auto;
+}
