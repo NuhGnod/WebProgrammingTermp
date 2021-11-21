@@ -27,3 +27,15 @@ input {
     display: block;
     margin: 50px auto;
 }
+table {
+    border-spacing: 20px;
+
+    margin: 0 auto;
+}
+td {
+    border: 1px black solid;
+}
+.button {
+    margin: 0 auto;
+    display: block;
+}

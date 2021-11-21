@@ -4,3 +4,26 @@
     width: 100px;
     height: 100px;
 }
+table {
+    border: black 1px solid;
+    margin: 0 auto;
+    border-spacing: 40px;
+}
+td {
+    text-align: center;
+    width: 10vh;
+    height: 8vh;
+}
+.red {
+    background: lightcoral;
+}
+.green {
+    background: green;
+}
+.yellow {
+    background: yellow;
+}
+#home {
+    display: block;
+    margin: 0 auto;
+}
