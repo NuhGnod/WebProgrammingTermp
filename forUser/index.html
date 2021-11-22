@@ -16,42 +16,42 @@
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"
         ></script> -->
-        <script defer src="/__/firebase/9.4.1/firebase-app-compat.js"></script>
-        <script defer src="/__/firebase/9.4.1/firebase-auth-compat.js"></script>
+        <!-- <script defer src="/__/firebase/9.4.0/firebase-app-compat.js"></script>
+        <script defer src="/__/firebase/9.4.0/firebase-auth-compat.js"></script>
         <script
             defer
-            src="/__/firebase/9.4.1/firebase-database-compat.js"
+            src="/__/firebase/9.4.0/firebase-database-compat.js"
         ></script>
         <script
             defer
-            src="/__/firebase/9.4.1/firebase-firestore-compat.js"
+            src="/__/firebase/9.4.0/firebase-firestore-compat.js"
         ></script>
         <script
             defer
-            src="/__/firebase/9.4.1/firebase-functions-compat.js"
+            src="/__/firebase/9.4.0/firebase-functions-compat.js"
         ></script>
         <script
             defer
-            src="/__/firebase/9.4.1/firebase-messaging-compat.js"
+            src="/__/firebase/9.4.0/firebase-messaging-compat.js"
         ></script>
         <script
             defer
-            src="/__/firebase/9.4.1/firebase-storage-compat.js"
+            src="/__/firebase/9.4.0/firebase-storage-compat.js"
         ></script>
         <script
             defer
-            src="/__/firebase/9.4.1/firebase-analytics-compat.js"
+            src="/__/firebase/9.4.0/firebase-analytics-compat.js"
         ></script>
         <script
             defer
-            src="/__/firebase/9.4.1/firebase-remote-config-compat.js"
+            src="/__/firebase/9.4.0/firebase-remote-config-compat.js"
         ></script>
         <script
             defer
-            src="/__/firebase/9.4.1/firebase-performance-compat.js"
+            src="/__/firebase/9.4.0/firebase-performance-compat.js"
         ></script>
 
-        <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+        <script defer src="/__/firebase/init.js?useEmulator=true"></script> -->
         <!-- <script
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffab54e001746890f92bd6f557f44381"
@@ -59,7 +59,7 @@
     </head>
     <body>
         <!-- 메인로고 -->
-        <img id="main_logo" alt="메인로고" src="/images/restraunt_png.png" />
+        <img id="main_logo" alt="메인로고" src="" />
         <!-- 전체 영역 -->
         <div id="container">
             <!-- 왼쪽 사이드 영역 -->
@@ -246,7 +246,11 @@
                 appId: "1:429432477693:web:758dae2b839e9b294e6b94",
                 measurementId: "G-88E9EB3MVC",
             };
+            firebase.initializeApp(firebaseConfig);
 
+            var db = firebase.firestore();
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
             // Initialize Firebase
             // const app = initializeApp(firebaseConfig);
             // const analytics = getAnalytics(app);

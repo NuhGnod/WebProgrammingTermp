@@ -7,7 +7,33 @@ let prevBtn = document.getElementById("prevBtn"); //이전페이지 버튼
 let login = document.getElementById("login"); //로그인 버튼
 let logout = document.getElementById("logout"); //로그아웃 버튼
 let singup = document.getElementById("signup"); //회원가입 버튼
+window.onload = function () {
+    // alert("ASD");
+};
 
+function init() {
+    storageRef
+        .child("images/" + `restraunt_png.png`)
+        .getDownloadURL()
+        .then(function (url) {
+            // `url` is the download URL for 'images/stars.jpg'
+
+            // This can be downloaded directly:
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = "blob";
+            xhr.onload = function (event) {
+                var blob = xhr.response;
+            };
+            xhr.open("GET", url);
+
+            // Or inserted into an <img> element:
+            document.getElementById("main_logo").src = url;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+init();
 if (navigator.geolocation) {
     //위치 정보를 얻기
     navigator.geolocation.getCurrentPosition(function (pos) {
@@ -116,6 +142,17 @@ function click_li() {
     open("./table.html", "_self"); //그 가게의 테이블 현황(모습)페이지로 넘어간다.
 }
 function click_option() {
+    // //for test
+
+    // db.collection("test")
+    //     .doc("test")
+    //     .set({
+    //         test: "Test",
+    //     })
+    //     .then(() => {
+    //         console.log("asd");
+    //     });
+    // console.log("#");
     //옵션 설정 (이미지) 누르기
     let div = document.getElementById("option_div");
     div.style.display =
