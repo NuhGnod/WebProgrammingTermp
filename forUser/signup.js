@@ -53,6 +53,8 @@ function click_signup() {
         return;
         //아무것도 선택되지 않은 상황
     }
+    //모든 입력이 한글, 영어, 숫자로 이루어졌는지 확인하고, 맞다면 login_flag 를 true로 설정한다.
+
     login_flag =
         checkEngNum(cUsername) &&
         checkEngNum(cPhone_number) &&
@@ -60,13 +62,18 @@ function click_signup() {
         checkEngNum(cPw) &&
         checkEngNum(cCheck_pw) &&
         checkEngNum(cNickname);
+
     if (cPw != cCheck_pw) {
+        //비밀번호와, 비밀번호 확인의 입력이 같은지.
         login_flag = false;
         alert(`비밀번호가 일치하지 않습니다.`);
         return;
     }
     if (login_flag) {
-        let userinfo = {
+        //모든 입력이 정상적으로 이루어졌다면,
+
+        let userInfo = {
+            //db에 저장한 userInfo 객체
             _username: cUsername,
             _phone_number: cPhone_number,
             _id: cId,
@@ -74,9 +81,9 @@ function click_signup() {
             _nickname: cNickname,
             _classfication: cClassfication,
         };
-        db.collection("Users")
+        db.collection("Users") //db에 저장.
             .doc(cId)
-            .set(userinfo)
+            .set(userInfo)
             .then(() => {
                 console.log(`유저 정보 저장 성공`);
             });
@@ -91,18 +98,22 @@ function click_cancel() {
     history.go(-1);
 }
 function click_check_id() {
+    //아이디중복 확인 버튼 클릭 이벤트.
     id_flag = true;
+
     //firestore 에서 user들의 데이터를 가져와 id의 중복여부를 체크한다.
     //중복된다면 id_flag = false, 유일하다면, id_flag = true;
     db.collection("Users")
         .get()
         .then((query) => {
             query.forEach((doc) => {
+                //db의 모든 id를 순차적으로 가져온다.
                 let _id = doc.data()._id;
                 console.log(_id);
                 if (_id == id.value) {
+                    //입력 id와 db의 id가 같다면 중복됨을 의미.
                     console.log(id.value);
-                    console.log("equal");
+                    console.log("id is already exist");
                     id_flag = false;
                 }
             });
@@ -110,6 +121,7 @@ function click_check_id() {
         .then(() => {
             console.log(id_flag);
             if (id_flag == false) {
+                //중복됨을 의미.
                 alert(`사용이 불가능한 id입니다. 다시 입력해주세요.`);
             } else {
                 alert(`사용 가능한 id입니다.`);

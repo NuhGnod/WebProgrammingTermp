@@ -7,6 +7,9 @@
         <title>Document</title>
         <link href="./login.css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     </head>
     <body>
         <div id="login_box" class="center" class="login">
@@ -42,6 +45,22 @@
                 </div>
             </div>
         </div>
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyBHcQEZEGb4dUZoyYqC98ChSfkKfi0BRUs",
+                authDomain: "restaurantinme.firebaseapp.com",
+                projectId: "restaurantinme",
+                storageBucket: "restaurantinme.appspot.com",
+                messagingSenderId: "429432477693",
+                appId: "1:429432477693:web:758dae2b839e9b294e6b94",
+                measurementId: "G-88E9EB3MVC",
+            };
+            firebase.initializeApp(firebaseConfig);
+
+            var db = firebase.firestore();
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+        </script>
         <script src="./login.js"></script>
     </body>
 </html>

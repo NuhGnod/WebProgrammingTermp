@@ -12,8 +12,9 @@ window.onload = function () {
 };
 
 function init() {
-    storageRef
-        .child("images/" + `restraunt_png.png`)
+    //페이지의 이미지를 firebase storage에서 가져와 로딩한다.
+    storageRef //firebase storage api 사용.
+        .child("images/" + `restraunt_png.png`) //메인로고
         .getDownloadURL()
         .then(function (url) {
             // `url` is the download URL for 'images/stars.jpg'
@@ -28,6 +29,39 @@ function init() {
 
             // Or inserted into an <img> element:
             document.getElementById("main_logo").src = url;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    storageRef
+        .child("images/" + `close.png`) //닫기 버튼
+        .getDownloadURL()
+        .then(function (url) {
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = "blob";
+            xhr.onload = function (event) {
+                var blob = xhr.response;
+            };
+            xhr.open("GET", url);
+
+            document.getElementById("close_option").src = url;
+            document.getElementById("close_my_page").src = url;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    storageRef
+        .child("images/" + `option.png`) //옵션 버튼
+        .getDownloadURL()
+        .then(function (url) {
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = "blob";
+            xhr.onload = function (event) {
+                var blob = xhr.response;
+            };
+            xhr.open("GET", url);
+
+            document.getElementById("option").src = url;
         })
         .catch(function (error) {
             console.log(error);
@@ -127,6 +161,8 @@ function click_login() {
 function click_logout() {
     //로그아웃한다. 모든 스토리지의 item을 제거한다.
     localStorage.clear();
+    //현재 화면을 새로고침.
+    window.location.reload();
 }
 function click_signup() {
     //회원가입버튼을 누르면 실행되고, 회원가입 하는 페이지로 이동한다.
@@ -144,15 +180,11 @@ function click_li() {
 function click_option() {
     // //for test
 
-    // db.collection("test")
-    //     .doc("test")
-    //     .set({
-    //         test: "Test",
-    //     })
-    //     .then(() => {
-    //         console.log("asd");
-    //     });
-    // console.log("#");
+    let login_flag = localStorage.getItem("login"); //로그인 여부.
+    if (login_flag) {
+        //로그인 되어있다면 옵션영억에서 로그인버튼은 안보이게 수정한다.
+        document.getElementById("login").style.display = "none";
+    }
     //옵션 설정 (이미지) 누르기
     let div = document.getElementById("option_div");
     div.style.display =
