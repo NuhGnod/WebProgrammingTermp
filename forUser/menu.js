@@ -1,9 +1,9 @@
 function init() {
     //메뉴페이지 초기상태설정
-    let info = localStorage.getItem("restraunt_info");
+    let info = sessionStorage.getItem("restraunt_info");
     info = JSON.parse(info);
     let place_name = info.place_name;
-    let table_info = localStorage.getItem("table_info");
+    let table_info = sessionStorage.getItem("table_info");
 
     let name = document.getElementById("place_name"); //선택한 가게의 이름을 보여준다.
     name.innerHTML = place_name;

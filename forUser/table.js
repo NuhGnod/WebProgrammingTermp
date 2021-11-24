@@ -17,14 +17,14 @@ function click_item() {
 function init() {
     //화면 초기상태
 
-    let info = localStorage.getItem("restraunt_info"); //선택된 가게의 이름을 메인로고 아래에 보여준다.
+    let info = sessionStorage.getItem("restraunt_info"); //선택된 가게의 이름을 메인로고 아래에 보여준다.
     info = JSON.parse(info);
     let place_name = info.place_name;
     document.getElementById("place_name").innerHTML = place_name;
     let items = document.getElementsByClassName("item");
-    if (localStorage.getItem("table_info") != null) {
+    if (sessionStorage.getItem("table_info") != null) {
         let table_info = document.getElementById("table_info"); //선택된 좌석의 번호를 화면에 보여준다.
-        table_info.innerHTML = localStorage.getItem("table_info");
+        table_info.innerHTML = sessionStorage.getItem("table_info");
     }
     //각 좌석에 click_item 함수를 달아준다.
     for (let i = 0; i < items.length; i++)
@@ -37,8 +37,8 @@ function click_cancel() {
         console.log("ASD");
         history.go(-1);
 
-        localStorage.removeItem("table_info");
-        localStorage.removeItem("restraunt_info");
+        sessionStorage.removeItem("table_info");
+        sessionStorage.removeItem("restraunt_info");
         // alert("");
     } else {
         console.log("###");
@@ -48,7 +48,7 @@ function click_cancel() {
 function click_next() {
     //좌석 선택후, 메뉴페이지로 이동한다.
     let table_info = document.getElementById("table_info").innerHTML;
-    localStorage.setItem("table_info", table_info);
+    sessionStorage.setItem("table_info", table_info);
     open("./menu.html", "_self");
 }
 init();

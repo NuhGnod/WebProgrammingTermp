@@ -5,9 +5,6 @@
     height: 100px;
 }
 
-/* .div {
-    border: 1px solid blue;
-} */
 #container {
     display: flex;
 }
@@ -119,4 +116,6 @@ img:hover {
 }
 .li:hover {
     cursor: pointer;
+}
+.marker_center {
 }

@@ -16,8 +16,8 @@ function click_pay() {
     //결제 완료후 메인페이지로 이동, 로컬스토리지의 item을 지운다.
     alert("결제되었습니다.");
 
-    localStorage.removeItem("table_info");
-    localStorage.removeItem("restraunt_info");
+    sessionStorage.removeItem("table_info");
+    sessionStorage.removeItem("restraunt_info");
     open("./index.html", "_self");
 }
 cancel.addEventListener("click", click_cancel);

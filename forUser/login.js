@@ -15,7 +15,7 @@ function click_login() {
     let cId = id.value;
     let cPw = pw.value;
     let login_flag = false;
-    auto_login = auto_login.Checked; //자동 로그인 체크 여부.
+    let cAuto_login = auto_login.checked; //자동 로그인 체크 여부.
     //firestore 에 연결하여 확인하는 부분
     //통과되면 login_flag = true;
     db.collection("Users")
@@ -36,12 +36,12 @@ function click_login() {
             //db에서 데이터를 검사한 후,
             if (login_flag) {
                 //로그인 유효성 통과.
-                if (auto_login) {
-                    //세션, 쿠키를 이용하여 자동로그인 하는 부분.
-                    alert(`아직은 사용할 수 없습니다. 미구현.`);
-                    return;
+                if (cAuto_login) {
+                    localStorage.setItem("auto_login", true);
+                    localStorage.setItem("login_id", cId);
                 }
-                localStorage.setItem("login", true);
+                sessionStorage.setItem("login", true);
+                sessionStorage.setItem("login_id", cId);
 
                 open("./index.html", "_self");
             } else {
