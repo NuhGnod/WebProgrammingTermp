@@ -7,7 +7,7 @@ let prevBtn = document.getElementById("prevBtn"); //이전페이지 버튼
 let login = document.getElementById("login"); //로그인 버튼
 let logout = document.getElementById("logout"); //로그아웃 버튼
 let singup = document.getElementById("signup"); //회원가입 버튼
-let search = document.getElementById("search"); //검색 버튼
+let searchBtn = document.getElementById("search"); //검색 버튼
 
 let for_test = document.getElementById("for_test"); //메인의 검색된 가게 리스트 중 첫번째 가게이다. 테스트를 위해 3개의 li중 첫번째만 클릭이벤트를 달아놓는다.
 let for_test_ = document.getElementById("for_test_"); //메인의 마이 페이지 영역의 내 가게 리스트이다. 테스트를 위해 첫번째 가게에만 클릭이벤트를 달아놓았다.
@@ -21,6 +21,8 @@ function click_login() {
 function click_logout() {
     //로그아웃한다. 모든 스토리지의 item을 제거한다.
     localStorage.clear();
+    sessionStorage.clear();
+    window.location.reload();
 }
 function click_signup() {
     //회원가입버튼을 누르면 실행되고, 회원가입 하는 페이지로 이동한다.
@@ -34,6 +36,17 @@ function click_li() {
     open("./restraunt_table.html", "_self"); //그 가게의 테이블 현황(모습)페이지로 넘어간다.
 }
 function click_option() {
+    let login_flag;
+    if (localStorage.getItem("auto_login")) {
+        //자동 로그인 되있다면 로그인버튼 없앰 -> 로그인 되있는 상태이므로,
+        login_flag = true;
+    } else {
+        login_flag = sessionStorage.getItem("login");
+    } //로그인 여부.
+    if (login_flag) {
+        //로그인 되어있다면 옵션영억에서 로그인버튼은 안보이게 수정한다.
+        document.getElementById("login").style.display = "none";
+    }
     //옵션 설정 (이미지) 누르기
     let div = document.getElementById("option_div");
     div.style.display =
@@ -54,7 +67,7 @@ function click_search() {
     //메인의 검색바에서 등록할 가게 이름을 입력후 등록버튼을 누른경우
     let word = document.getElementById("search_restraunt").value; //검색바에서 입력된 단어.
 
-    localStorage.setItem("register_name", word);
+    sessionStorage.setItem("register_name", word);
     open("register.html", "_self");
 }
 
@@ -67,4 +80,4 @@ logout.addEventListener("click", click_logout);
 singup.addEventListener("click", click_signup);
 for_test.addEventListener("click", click_li);
 for_test_.addEventListener("click", click_restraunt_page);
-search.addEventListener("click", click_search);
+searchBtn.addEventListener("click", click_search);

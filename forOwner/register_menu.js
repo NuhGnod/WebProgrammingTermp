@@ -1,6 +1,6 @@
 function init() {
     //페이지 초기상태
-    let name = localStorage.getItem("register_name");
+    let name = sessionStorage.getItem("register_name");
     let place_name = document.getElementById("place_name");
     place_name.innerHTML = name;
 }

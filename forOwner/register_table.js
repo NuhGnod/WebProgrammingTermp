@@ -2,7 +2,7 @@ let next = document.getElementById("next");
 let cancel = document.getElementById("cancel");
 function init() {
     //초기 상태 페이지
-    let register_name = localStorage.getItem("register_name");
+    let register_name = sessionStorage.getItem("register_name");
     let name = document.getElementById("place_name");
     name.innerHTML = register_name;
 }

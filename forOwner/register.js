@@ -3,7 +3,7 @@ let register = document.getElementById("register"); //등록하기 버튼
 let cancel = document.getElementById("cancel"); //취소 버튼
 function init() {
     //페이지 초기 상태함수
-    h2.innerHTML = localStorage.getItem("register_name");
+    h2.innerHTML = sessionStorage.getItem("register_name");
 }
 init();
 function click_register() {
