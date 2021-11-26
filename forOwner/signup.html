@@ -7,6 +7,9 @@
         <title>Document</title>
         <link href="./signup.css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     </head>
     <body>
         <div id="signup_box" class="center">
@@ -17,7 +20,11 @@
                 src="/images/restraunt_png.png"
                 id="main_logo"
             />
-            <h2>회원가입정보 <br />모든 입력은 영어 또는 숫자만 가능합니다.</h2>
+            <h2>
+                회원가입정보 <br />모든 입력은
+                <span id="em">한글, 영어</span> 또는 <span id="em">숫자</span>만
+                가능합니다.
+            </h2>
             <hr />
             <!-- 회원가입 입력 영억 -->
             <!-- 아이디는 중 복될 수 없다. -->
@@ -74,6 +81,33 @@
             <!-- 취소버튼을 누르면 이전페이지로 이동한다. -->
             <button id="cancel">취소</button>
         </div>
+        <script>
+            // Import the functions you need from the SDKs you need
+            // import { initializeApp } from "firebase/app";
+            // import { getAnalytics } from "firebase/analytics";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                apiKey: "AIzaSyBHcQEZEGb4dUZoyYqC98ChSfkKfi0BRUs",
+                authDomain: "restaurantinme.firebaseapp.com",
+                projectId: "restaurantinme",
+                storageBucket: "restaurantinme.appspot.com",
+                messagingSenderId: "429432477693",
+                appId: "1:429432477693:web:71beed727d678cfc4e6b94",
+                measurementId: "G-1TNQMXXHVR",
+            };
+            firebase.initializeApp(firebaseConfig);
+
+            var db = firebase.firestore();
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            // Initialize Firebase
+            // const app = initializeApp(firebaseConfig);
+            // const analytics = getAnalytics(app);
+        </script>
         <script src="./signup.js"></script>
     </body>
 </html>

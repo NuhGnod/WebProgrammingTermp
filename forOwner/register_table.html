@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <link href="register_table.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         <!-- 내부 모습 등록하기 -->
@@ -14,23 +15,34 @@
             <span id="place_name"></span> <span id="table_info"></span>
         </div>
         <div class="parent">
-            <div class="first">
+            <div class="div first">
                 <span contenteditable="true">n</span>번 테이블
             </div>
 
-            <div class="second">입<br />구</div>
+            <div class="div second" id="entrance">입<br />구</div>
 
-            <div class="third">출<br />구</div>
+            <div class="div third" id="exit" draggable="true">출<br />구</div>
 
-            <div class="fourth">주방</div>
+            <div class="div fourth">주방</div>
 
-            <div class="fifth">화장실</div>
-            <div class="sixth"><span contenteditable="true">n</span>번 룸</div>
+            <div
+                id="toilet"
+                draggable="true"
+                class="div fifth"
+                ondragover="allowDrop(event)"
+                ondrop="drop(event)"
+            >
+                화장실
+            </div>
+            <div draggable="true" class="div sixth">
+                <span contenteditable="true">n</span>번 룸
+            </div>
             <button id="next">다음</button>
             <button id="cancel">취소</button>
         </div>
-
-        <div class="container">
+        <!-- 절대 좌표로 테이블 형태 구성. -->
+        <div class="border"></div>
+        <!-- <div class="container">
             <div id="body">
                 <div id="table">
                     <div class="item red">1번테이블</div>
@@ -42,7 +54,7 @@
                     <div class="item green">2번 룸</div>
 
                     <div class="item green">2번테이블</div>
-                    <div class=""></div>
+                    <div class="dd">asd</div>
                     <div class=""></div>
                     <div class=""></div>
                     <div class=""></div>
@@ -68,7 +80,8 @@
                     <div class=""></div>
                 </div>
             </div>
-        </div>
+        </div> -->
+
         <script src="./register_table.js"></script>
     </body>
 </html>

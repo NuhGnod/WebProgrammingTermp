@@ -1,6 +1,6 @@
 #main_logo {
     display: block;
-    margin: 50px auto;
+    margin: 30px auto;
     width: 100px;
     height: 100px;
 }
@@ -9,7 +9,7 @@
     font-weight: bold;
     text-align: center;
     display: block;
-    margin: 50px auto;
+    margin: 5px auto;
 }
 .parent {
     display: flex;
@@ -24,7 +24,7 @@
     margin-left: 5%;
     width: 90%;
     height: 70vh;
-    /* border: red 1px solid; */
+    border: black 2px solid;
 }
 #body {
     display: inline-block;
@@ -36,7 +36,7 @@
 #table {
     align-items: center; /* 수직 가운데 정렬 */
     justify-content: center; /* 수평 가운데 정렬 */
-    margin: 10px;
+    margin: 8px;
     border: 1px solid black;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -51,6 +51,7 @@ div[class="item base kitchen"] {
 div[class="item base toilet"] {
     grid-column: span 2;
 }
+
 .item {
     border: 1px solid;
     display: flex;
@@ -80,7 +81,9 @@ div[class="item base toilet"] {
 .exit {
     width: 50px;
 }
-
+.div:hover {
+    cursor: pointer;
+}
 .first,
 .second,
 .third,
@@ -132,4 +135,15 @@ button {
     height: 3vh;
     width: 5vh;
     margin: 5px;
+}
+.test {
+    left: 100;
+}
+.border {
+    margin-top: 15px;
+    text-align: center;
+    margin-left: 10%;
+    width: 80%;
+    height: 65vh;
+    border: black 2px solid;
 }

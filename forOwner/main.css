@@ -75,7 +75,7 @@
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
-    background: darkolivegreen;
+    background: grey;
 }
 .restraunt_info {
     border: 1px black solid;
@@ -107,7 +107,7 @@
     position: absolute;
     width: 300px;
     height: 600px;
-    background: chocolate;
+    background: lightgray;
 }
 img:hover {
     cursor: pointer;
