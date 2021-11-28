@@ -16,64 +16,97 @@ var div = $(".second");
 //div.offset({ top: 400 });
 let divs = $(".div");
 let div_arr = [];
-let start = "";
-let end = "";
-let idDragging = null;
+
+let isDragging = null;
 let originLeft = null;
 let originTop = null;
 let originX = null;
 let originY = null;
-
+let table_line = $(".border").offset().top; //테이블 구성하는 영역의 border의 top위치
+let block_line = $("#_table").offset().top;
 function init() {
     //초기 상태 페이지
     let register_name = sessionStorage.getItem("register_name");
     let name = document.getElementById("place_name");
     name.innerHTML = register_name;
     for (let i = 0; i < divs.length; i++) {
+        //상단의 테이블, 입구, 출구, 주방, 화장실, 룸 의 블럭의 드래그 앤 드롭 효과를 준다.
         div_arr[i] = divs[i];
+        console.log(div_arr[i]);
         div_arr[i].addEventListener("mousedown", (e) => {
-            idDragging = true;
+            console.log(e);
+            //요소 드래그 시작
+            //드래그를 시작하면 제자리에 자신을 복사하여 하나더 생성해 놓는다.
+            isDragging = true;
             originX = e.clientX;
             originY = e.clientY;
-            originLeft = e.clientLeft;
-            console.log(e.clientX);
+            originLeft = div_arr[i].offsetLeft;
+            originTop = div_arr[i].offsetTop;
         });
         div_arr[i].addEventListener("mouseup", (e) => {
-            console.log(e.clientX);
+            //마우스를 놓았을 떄,
+            //위로 움직임 불가 , 일정영역 벗어나야 적용완료.
+            let id = e.path[0].id; //드래그 한 요소의 id
+            let obj = $(`#${id}`).offset().top;
+            // console.log(e);
+
+            let moveLeft = e.clientX;
+            let moveTop = e.clientY;
+            if (obj < table_line || obj <= block_line) {
+                console.log(obj);
+                console.log(table_line);
+                console.log(block_line);
+                //요소가 영역안에 들어오지 못함
+                //또는 요소가 위쪽으로 드래그 된 경우,
+                //다시 원위치 시킨다.
+                //클릭 한 요소를 그냥 제거시키면 된다.
+                alert("no");
+            } else {
+                //성공적인 드래그 한 경우이고,
+                //블록을 복사하여드래그 하는것이다.
+                let _id = e.path[0].id;
+                let node;
+                console.log(originX);
+                if (_id == "_table") {
+                    node = $(`#${_id}`).clone();
+                    node.css({ "z-index": "2" });
+                    // node.style.zIndex = 2;
+                }
+                if (_id == "_entrance") {
+                    node = $(`#${_id}`).clone();
+                    node.css({ "z-index": "2" });
+                }
+                if (_id == "_exit") {
+                }
+                if (_id == "_kitchen") {
+                }
+                if (_id == "_toilet") {
+                }
+                if (_id == "_room") {
+                }
+                console.log(node);
+                node.css({ position: "absolute" });
+                $(`#_entrance`).before(node);
+                // node.offset({ top: originTop, left: originLeft });
+            }
+            isDragging = false;
         });
         div_arr[i].addEventListener("mousemove", (e) => {
-            // console.log(this);
-            // $(this).offset({ top: 400 });
-            console.log(e.path[0].id);
-            let id = $(this).id;
-            console.log(id);
-            // d.offset({ top: 400 });
-            // console.log($(this));
-            div.offset({ top: 400 });
-            // console.log(e);
+            let id = e.path[0].id;
+            // console.log(id);
+            if (isDragging) {
+                const diffX = e.clientX - originX;
+                const diffY = e.clientY - originY;
+                console.log(originX);
+                $(`#${id}`).offset({
+                    left: originLeft + diffX,
+                    top: originTop + diffY,
+                });
+            }
         });
-        // div_arr[i].addEventListener(d, allowDrop);
-        console.log(div_arr[i]);
     }
-    console.log(divs.length);
-    // console.log("다음 " + absoluteTop);
-    // console.log("입구 " + divTop);
-    // div.offset({ top: 400 });
 }
-function dd() {
-    console.log("D");
-}
-function drag(ev) {
-    console.log(ev);
-}
-function drop(ev) {
-    ev.preventDefault();
-    console.log(ev);
-}
-function allowDrop(ev) {
-    ev.preventDefault();
-    console.log(ev);
-}
+
 init();
 function click_next() {
     //다음 버튼 클릭시, 메뉴 등록 페이지로 이동
@@ -84,5 +117,5 @@ function click_cancel() {
     history.go(-1);
 }
 
-next.addEventListener("click", click_next);
-cancel.addEventListener("click", click_cancel);
+// next.addEventListener("click", click_next);
+// cancel.addEventListener("click", click_cancel);

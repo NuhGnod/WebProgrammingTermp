@@ -14,27 +14,20 @@
         <div id="place_name_div">
             <span id="place_name"></span> <span id="table_info"></span>
         </div>
+
         <div class="parent">
-            <div class="div first">
+            <div class="div first" id="_table">
                 <span contenteditable="true">n</span>번 테이블
             </div>
 
-            <div class="div second" id="entrance">입<br />구</div>
+            <div class="div second" id="_entrance">입<br />구</div>
 
-            <div class="div third" id="exit" draggable="true">출<br />구</div>
+            <div class="div third" id="_exit">출<br />구</div>
 
-            <div class="div fourth">주방</div>
+            <div class="div fourth" id="_kitchen">주방</div>
 
-            <div
-                id="toilet"
-                draggable="true"
-                class="div fifth"
-                ondragover="allowDrop(event)"
-                ondrop="drop(event)"
-            >
-                화장실
-            </div>
-            <div draggable="true" class="div sixth">
+            <div id="_toilet" class="div fifth">화장실</div>
+            <div id="_room" class="div sixth">
                 <span contenteditable="true">n</span>번 룸
             </div>
             <button id="next">다음</button>
