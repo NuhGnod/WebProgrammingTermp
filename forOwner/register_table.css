@@ -16,7 +16,7 @@
     height: 9vh;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid black; */
+    border: 1px solid black;
 }
 .container {
     /* width: 100%; */
@@ -91,7 +91,7 @@ div[class="item base toilet"] {
 .fifth,
 .sixth {
     position: relative;
-    z-index: 1;
+    z-index: -1;
     margin-right: 50px;
     display: flex;
     justify-content: center;

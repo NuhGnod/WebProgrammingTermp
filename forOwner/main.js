@@ -11,7 +11,13 @@ let searchBtn = document.getElementById("search"); //검색 버튼
 
 let for_test = document.getElementById("for_test"); //메인의 검색된 가게 리스트 중 첫번째 가게이다. 테스트를 위해 3개의 li중 첫번째만 클릭이벤트를 달아놓는다.
 let for_test_ = document.getElementById("for_test_"); //메인의 마이 페이지 영역의 내 가게 리스트이다. 테스트를 위해 첫번째 가게에만 클릭이벤트를 달아놓았다.
-
+function init() {
+    if (localStorage.getItem("auto_login")) {
+        let login_id = localStorage.getItem("login_id");
+        sessionStorage.setItem("login_id", login_id);
+    }
+}
+init();
 function click_login() {
     //로그인 버튼 클릭시 실행되는 함수, login페이지로 이동한다.
     //이미 로그인 되어있다면, alert창을 띄운다.
