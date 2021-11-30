@@ -114,17 +114,17 @@ div[class="item base toilet"] {
 }
 .fourth {
     /* 주방 */
-    /* width: 18vh; */
+    width: 18vh;
     height: 8vh;
 }
 .fifth {
     /* 화장실 */
-    /* width: 18vh; */
+    width: 18vh;
     height: 8vh;
 }
 .sixth {
     /* 룸 */
-    /* width: 9vh; */
+    width: 9vh;
     height: 8vh;
 }
 input:focus {

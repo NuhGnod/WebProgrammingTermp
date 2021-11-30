@@ -25,18 +25,45 @@ function click_register() {
     if (localStorage.getItem("auto_login"))
         cId = localStorage.getItem("login_id");
     else cId = sessionStorage.getItem("login_id");
-    db.collection("Users") //db에 저장. Users->사용자 id -> restaurants -> timestamp
+    //중복체크
+    let flag = true;
+    db.collection("Users")
         .doc(cId)
         .collection("restaurants")
-        .doc(userTimestamp.toString())
-        .set(register_info)
-        .then(() => {
-            console.log(`유저 정보 저장 성공`);
+        .get()
+        .then((query) => {
+            console.log("ASD");
+            query.forEach((doc) => {
+                console.log(doc.data()._phone_number);
+                if (doc.data()._phone_number == phone_number) {
+                    //중복됨.
+                    flag = false;
+                }
+            });
         })
         .then(() => {
-            alert(`정보가 등록되었습니다. 내부 모습 등록 페이지로 이동합니다.`);
-            open("./register_table.html", "_self");
+            if (!flag) {
+                alert("중복된 정보 입니다.");
+                return;
+            }
+            db.collection("Users") //db에 저장. Users->사용자 id -> restaurants -> timestamp
+                .doc(cId)
+                .collection("restaurants")
+                .doc(userTimestamp.toString())
+                .set(register_info)
+                .then(() => {
+                    sessionStorage.setItem("phone_number", phone_number);
+
+                    console.log(`유저 정보 저장 성공`);
+                })
+                .then(() => {
+                    alert(
+                        `정보가 등록되었습니다. 내부 모습 등록 페이지로 이동합니다.`
+                    );
+                    open("./register_table.html", "_self");
+                });
         });
+
     //등록하기 버튼 클릭시 firestore에 입력값들이 저장되고,
     //가게의 내부 모습 등록 페이지로 넘어간다.
 }
