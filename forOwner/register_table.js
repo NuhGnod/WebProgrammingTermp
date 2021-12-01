@@ -152,16 +152,14 @@ function init() {
 
     for (let i = 0; i < 3; i++) {
         //입구 블럭
-        node = $(
-            `<div class="div second new" id="${i}_entrance">입<br />구</div>`
-        );
+        node = $(`<div class="div second new" id="${i}_entrance">입구</div>`);
         node.css({ "z-index": i, left: $(`#_entrance`).offset().left });
         node.css({ position: "absolute" });
         $(`.parent`).append(node);
     }
     for (let i = 0; i < 3; i++) {
         //출구 블럭
-        node = $(`<div class="div third new" id="${i}_exit">출<br />구</div>`);
+        node = $(`<div class="div third new" id="${i}_exit">출구</div>`);
 
         node.css({ "z-index": i, left: $(`#_exit`).offset().left });
         node.css({ position: "absolute" });
@@ -261,26 +259,36 @@ function click_next() {
     let infoSet = {};
     let infoIdx = [];
     let infoBlock = [];
+    let infoTop = [];
+    let infoLeft = [];
     for (let i = 0; i < block_arr.length; i++) {
         if (block_arr[i].offsetTop > table_line) {
             console.log(block_arr[i].offsetTop);
+            let check = block_arr[i].id.split("_")[1];
+            let top = block_arr[i].offsetTop;
+            let left = block_arr[i].offsetLeft;
+            let idx = -1; //번호가 없는 입구 출구 화장실 주방 을 의미.
+            let block = block_arr[i].innerHTML;
+            if (check == "table" || check == "room") {
+                idx = block_arr[i].innerHTML
+                    .split(" ")[17]
+                    .split(`">`)[1]
+                    .split("<")[0];
+                block = block_arr[i].innerHTML.split(" ")[18];
+            }
             //이동된 요소임을 의미.
 
-            let idx = block_arr[i].innerHTML
-                .split(" ")[17]
-                .split(`">`)[1]
-                .split("<")[0];
-            let block = block_arr[i].innerHTML.split(" ")[18];
             infoIdx.push(idx);
             infoBlock.push(block);
+            infoTop.push(top);
+            infoLeft.push(left);
 
             console.log(block);
         }
     }
-    infoSet._infoIdx = infoIdx;
-    infoSet._infoBlock = infoBlock;
-    console.log(infoSet);
+
     let timestamp = 0;
+
     db.collection("Users")
         .doc(sessionStorage.getItem("login_id"))
         .collection("restaurants")
@@ -292,20 +300,38 @@ function click_next() {
                     sessionStorage.getItem("phone_number")
                 ) {
                     timestamp = doc.id;
+
                     console.log(timestamp);
+                    infoSet._name = doc.data()._name; //대표자 이름
+                    infoSet._placeName = doc.data()._place_name; //가게이름
+                    infoSet._phoneNumber = doc.data()._phone_number; //가게번호
+                    infoSet._address = doc.data()._address; //가게 주소
+                    infoSet._infoIdx = infoIdx; //번호
+                    infoSet._infoBlock = infoBlock; //테이블, 룸, 입구, 출구, 화장실, 주방
+                    infoSet._infoTop = infoTop; //offsetTop
+                    infoSet._infoLeft = infoLeft; //offsetLeft
+                    console.log(infoSet);
                 }
             });
         })
         .then(() => {
-            db.collection("Users")
-                .doc(sessionStorage.getItem("login_id"))
-                .collection("restaurants")
+            db.collection("Table_infos")
                 .doc(timestamp)
-                .collection("table_info")
-                .doc("table_info")
                 .set(infoSet)
                 .then(() => {
-                    console.log("success");
+                    console.log(`success`);
+                })
+                .then(() => {
+                    db.collection("Users")
+                        .doc(sessionStorage.getItem("login_id"))
+                        .collection("restaurants")
+                        .doc(timestamp)
+                        .collection("table_info")
+                        .doc("table_info")
+                        .set(infoSet)
+                        .then(() => {
+                            console.log("success");
+                        });
                 });
         });
     //다음 버튼 클릭시, 메뉴 등록 페이지로 이동

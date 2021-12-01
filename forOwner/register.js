@@ -27,6 +27,7 @@ function click_register() {
     else cId = sessionStorage.getItem("login_id");
     //중복체크
     let flag = true;
+    register_info._id = cId;
     db.collection("Users")
         .doc(cId)
         .collection("restaurants")
