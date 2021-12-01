@@ -261,6 +261,7 @@ function click_next() {
     let infoBlock = [];
     let infoTop = [];
     let infoLeft = [];
+    let infoColors = [];
     for (let i = 0; i < block_arr.length; i++) {
         if (block_arr[i].offsetTop > table_line) {
             console.log(block_arr[i].offsetTop);
@@ -282,7 +283,7 @@ function click_next() {
             infoBlock.push(block);
             infoTop.push(top);
             infoLeft.push(left);
-
+            infoColors.push("");
             console.log(block);
         }
     }

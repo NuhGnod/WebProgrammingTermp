@@ -103,7 +103,7 @@ div[class="item base toilet"] {
 
 .first {
     /* 테이블 */
-    /* width: 9vh; */
+    width: 9vh;
     height: 8vh;
 }
 .second,
