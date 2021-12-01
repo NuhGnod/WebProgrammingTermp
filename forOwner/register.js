@@ -35,10 +35,16 @@ function click_register() {
         .then((query) => {
             console.log("ASD");
             query.forEach((doc) => {
-                console.log(doc.data()._phone_number);
-                if (doc.data()._phone_number == phone_number) {
+                // console.log(d);
+                if (
+                    doc.data()._phone_number.trim() == phone_number.trim() ||
+                    doc.data()._address.trim() == address.trim()
+                ) {
                     //중복됨.
                     flag = false;
+
+                    console.log(address.length);
+                    console.log(doc.data()._address.length);
                 }
             });
         })

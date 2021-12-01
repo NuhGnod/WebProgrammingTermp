@@ -6,6 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
         <link href="./register_menu.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     </head>
     <body>
         <img alt="메인로고" id="main_logo" src="/images/restraunt_png.png" />
@@ -13,12 +17,13 @@
             <span id="place_name"></span> <span id="table_info"></span>
         </div>
         <div class="parent">
-            메뉴 이름 : <input type="text" placeholder="메뉴 이름" /> 가격 :
-            <input type="text" placeholder="가격" />
+            메뉴 이름 :
+            <input id="menu" type="text" placeholder="메뉴 이름" /> 가격 :
+            <input id="price" type="text" placeholder="가격" />
             <button id="register">등록하기</button>
             <br />
         </div>
-        <div>
+        <div class="buttons">
             <button id="register_done" class="button">등록 완료</button>
             <button id="cancel" class="button">취소</button>
         </div>
@@ -26,7 +31,7 @@
         <div class="list">
             <table>
                 <tbody>
-                    <tr>
+                    <!-- <tr>
                         <td>메뉴 이름1</td>
                         <td>가격1</td>
                     </tr>
@@ -45,10 +50,37 @@
                     <tr>
                         <td>메뉴 이름5</td>
                         <td>가격5</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
+        <script>
+            // Import the functions you need from the SDKs you need
+            // import { initializeApp } from "firebase/app";
+            // import { getAnalytics } from "firebase/analytics";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                apiKey: "AIzaSyBHcQEZEGb4dUZoyYqC98ChSfkKfi0BRUs",
+                authDomain: "restaurantinme.firebaseapp.com",
+                projectId: "restaurantinme",
+                storageBucket: "restaurantinme.appspot.com",
+                messagingSenderId: "429432477693",
+                appId: "1:429432477693:web:71beed727d678cfc4e6b94",
+                measurementId: "G-1TNQMXXHVR",
+            };
+            firebase.initializeApp(firebaseConfig);
+
+            var db = firebase.firestore();
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            // Initialize Firebase
+            // const app = initializeApp(firebaseConfig);
+            // const analytics = getAnalytics(app);
+        </script>
+        <script src="./register_menu.js"></script>
     </body>
-    <script src="./register_menu.js"></script>
 </html>

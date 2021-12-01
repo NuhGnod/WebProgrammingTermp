@@ -22,8 +22,9 @@ input {
     margin: 10px;
 }
 .list {
+    width: 30%;
     text-align: center;
-    border: red 1px solid;
+    border: black 1px solid;
     display: block;
     margin: 50px auto;
 }
@@ -35,7 +36,9 @@ table {
 td {
     border: 1px black solid;
 }
-.button {
-    margin: 0 auto;
+
+.buttons {
+    text-align: center;
     display: block;
+    margin: 50px auto;
 }

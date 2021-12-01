@@ -261,7 +261,7 @@ function click_next() {
     let infoBlock = [];
     let infoTop = [];
     let infoLeft = [];
-    let infoColors = [];
+    let infoColor = [];
     for (let i = 0; i < block_arr.length; i++) {
         if (block_arr[i].offsetTop > table_line) {
             console.log(block_arr[i].offsetTop);
@@ -276,6 +276,9 @@ function click_next() {
                     .split(`">`)[1]
                     .split("<")[0];
                 block = block_arr[i].innerHTML.split(" ")[18];
+                infoColor.push("green"); //좌석은 내부 모습 등록시 기본으로 green 값이다.
+            } else {
+                infoColor.push("");
             }
             //이동된 요소임을 의미.
 
@@ -283,7 +286,6 @@ function click_next() {
             infoBlock.push(block);
             infoTop.push(top);
             infoLeft.push(left);
-            infoColors.push("");
             console.log(block);
         }
     }
@@ -301,7 +303,6 @@ function click_next() {
                     sessionStorage.getItem("phone_number")
                 ) {
                     timestamp = doc.id;
-
                     console.log(timestamp);
                     infoSet._name = doc.data()._name; //대표자 이름
                     infoSet._placeName = doc.data()._place_name; //가게이름
@@ -311,6 +312,7 @@ function click_next() {
                     infoSet._infoBlock = infoBlock; //테이블, 룸, 입구, 출구, 화장실, 주방
                     infoSet._infoTop = infoTop; //offsetTop
                     infoSet._infoLeft = infoLeft; //offsetLeft
+                    infoSet._infoColor = infoColor; //테이블 현황은 초기에 null 값
                     console.log(infoSet);
                 }
             });
@@ -332,11 +334,15 @@ function click_next() {
                         .set(infoSet)
                         .then(() => {
                             console.log("success");
+                        })
+                        .then(() => {
+                            //다음 버튼 클릭시, 메뉴 등록 페이지로 이동
+                            sessionStorage.setItem("timestamp", timestamp);
+                            alert(`내부 모습 등록이 완료되었습니다.`);
+                            open("./register_menu.html", "_self");
                         });
                 });
         });
-    //다음 버튼 클릭시, 메뉴 등록 페이지로 이동
-    // open("./register_menu.html", "_self");
 }
 function click_cancel() {
     //취소 버튼 클릭시 이전 페이지로 이동
