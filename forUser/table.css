@@ -69,9 +69,7 @@ button {
     height: 3vh;
     width: 5vh;
 }
-#next {
-    margin: 0 auto;
-}
+
 .border {
     margin-top: 15px;
     text-align: center;
@@ -81,4 +79,10 @@ button {
     border: black 2px solid;
     /* justify-content: center; */
     /* align-items: center; */
+}
+
+.buttons {
+    text-align: center;
+    display: block;
+    margin: 50px auto;
 }

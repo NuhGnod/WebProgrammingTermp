@@ -7,6 +7,9 @@
         <title>Document</title>
         <link href="./menu.css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     </head>
     <body>
         <img alt="메인로고" id="main_logo" src="/images/restraunt_png.png" />
@@ -16,7 +19,7 @@
         </div>
         <table>
             <tbody>
-                <tr>
+                <!-- <tr>
                     <td id="menu1">메뉴 1</td>
                     <td id="price1">가격 1</td>
                     <td><input type="checkbox" id="checkbox1" /></td>
@@ -56,7 +59,7 @@
                     <td id="price7">가격 7</td>
 
                     <td><input type="checkbox" id="checkbox7" /></td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <div id="bottom_div">
@@ -65,6 +68,33 @@
         </div>
         <button id="next">다음</button>
         <button id="cancel">취소</button>
+        <script>
+            // Import the functions you need from the SDKs you need
+            // import { initializeApp } from "firebase/app";
+            // import { getAnalytics } from "firebase/analytics";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                apiKey: "AIzaSyBHcQEZEGb4dUZoyYqC98ChSfkKfi0BRUs",
+                authDomain: "restaurantinme.firebaseapp.com",
+                projectId: "restaurantinme",
+                storageBucket: "restaurantinme.appspot.com",
+                messagingSenderId: "429432477693",
+                appId: "1:429432477693:web:758dae2b839e9b294e6b94",
+                measurementId: "G-88E9EB3MVC",
+            };
+            firebase.initializeApp(firebaseConfig);
+
+            var db = firebase.firestore();
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            // Initialize Firebase
+            // const app = initializeApp(firebaseConfig);
+            // const analytics = getAnalytics(app);
+        </script>
         <script src="./menu.js"></script>
     </body>
 </html>

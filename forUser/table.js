@@ -1,28 +1,33 @@
 // console.log(opener.document.referrer);
 let cancel = document.getElementById("cancel");
 let next = document.getElementById("next");
-
+let timestamp; //timestamp
 function click_item() {
-    console.log(this);
+    //color : darkgreen, khaki, darkred
+    console.log(this.style.background);
     //각 좌석들은 선택했을 때의 함수
-    if (this.className != "item green") {
+    if (this.style.background != "darkgreen") {
         //녹색 좌석만 선택가능.
         alert(`녹색 좌석만 선택가능합니다.`);
         return;
     }
     let table_info = document.getElementById("table_info"); //선택된 좌석의 번호를 화면에 보여준다.
-    table_info.innerHTML = this.innerHTML;
+    table_info.innerHTML = "&nbsp&nbsp 선택 좌석 : " + this.innerHTML;
     // console.log(`item`);
-    alert(table_info.innerHTML + "이 선택되었습니다.");
+    alert(table_info.innerHTML.split(":")[1].trim() + "이 선택되었습니다.");
 }
 function init() {
+    console.log(cancel);
+    next.addEventListener("click", click_next);
+    cancel.addEventListener("click", click_cancel);
     //화면 초기상태
     //info 는 배열 형태로 받아와진다.
     let info = sessionStorage.getItem("restraunt_info"); //선택된 가게의 이름을 메인로고 아래에 보여준다.
     info = JSON.parse(info);
     let place_name = info[3];
-    document.getElementById("place_name").innerHTML = place_name;
-    let timestamp = info[4];
+    document.getElementById("place_name").innerHTML =
+        "가게 이름 : " + place_name;
+    timestamp = info[4];
     console.log(timestamp);
     db.collection("Table_infos")
         .get()
@@ -36,6 +41,8 @@ function init() {
     let infoIdxs;
     let infoLefts;
     let infoTops;
+    let infoColors;
+    console.log(timestamp);
     db.collection("Table_infos")
         .doc(timestamp)
         .get()
@@ -44,14 +51,29 @@ function init() {
             infoIdxs = doc.data()._infoIdx;
             infoLefts = doc.data()._infoLeft;
             infoTops = doc.data()._infoTop;
+            infoColors = doc.data()._infoColor;
         })
         .then(() => {
             for (let i = 0; i < infoBlocks.length; i++) {
                 let node;
+                let color;
+                console.log(infoBlocks[i].trim());
+
+                if (
+                    infoBlocks[i].trim() == "테이블" ||
+                    infoBlocks[i].trim() == "룸"
+                ) {
+                    if (infoColors[i] == "red") color = "darkred";
+                    if (infoColors[i] == "yellow") color = "khaki";
+                    if (infoColors[i] == "green") color = "darkgreen";
+                }
                 if (infoBlocks[i].trim() == "테이블") {
+                    //id값은 각 배열의 index를 의미.나중에 테이블현황을 위함.
+
                     node = $(
-                        `<div class="div first new" id="${i}">${infoBlocks[i] //id값은 각 배열의 index를 의미.나중에 테이블현황을 위함.
-                            .trim()}</div>`
+                        `<div class="div first new" id="${i}">${infoIdxs[
+                            i
+                        ].trim()}번 ${infoBlocks[i].trim()}</div>`
                     );
                 }
                 if (infoBlocks[i].trim() == "입구") {
@@ -84,13 +106,14 @@ function init() {
                 }
                 if (infoBlocks[i].trim() == "룸") {
                     node = $(
-                        `<div class="div sixth new" id="${i}">${infoBlocks[
+                        `<div class="div sixth new" id="${i}">${infoIdxs[
                             i
-                        ].trim()}</div>`
+                        ].trim()}번 ${infoBlocks[i].trim()}</div>`
                     );
                 }
                 console.log(infoBlocks[i].trim());
                 node.css({
+                    background: color,
                     "z-index": 1,
                     left: infoLefts[i],
                     top: infoTops[i],
@@ -117,11 +140,15 @@ function click_cancel() {
     console.log("########");
 }
 function click_next() {
+    console.log(`next`);
+    console.log(document.getElementById("table_info").innerHTML.split(":")[1]);
     //좌석 선택후, 메뉴페이지로 이동한다.
-    let table_info = document.getElementById("table_info").innerHTML;
+    let table_info = document
+        .getElementById("table_info")
+        .innerHTML.split(":")[1]
+        .trim();
     sessionStorage.setItem("table_info", table_info);
+    sessionStorage.setItem("timestamp", timestamp);
     open("./menu.html", "_self");
 }
 init();
-next.addEventListener("click", click_next);
-cancel.addEventListener("click", click_cancel);
