@@ -1,78 +1,84 @@
-#container {
-    width: 100%;
+.container {
+    /* width: 100%; */
     text-align: center;
-}
-#body {
-    display: inline-block;
-    width: 60vw;
+    margin-left: 5%;
+    width: 90%;
     height: 70vh;
-    /* border: 1px solid black; */
-    width: 80vw;
+    border: black 2px solid;
 }
 #main_logo {
     display: block;
-    margin: 50px auto;
+    margin: 30px auto;
     width: 100px;
     height: 100px;
 }
 #place_name_div {
+    font-size: x-large;
     font-weight: bold;
-    font-size: large;
     text-align: center;
+    display: block;
+    margin: 5px auto;
 }
-span {
-    margin: 10px;
-}
-#table {
-    align-items: center; /* 수직 가운데 정렬 */
-    justify-content: center; /* 수평 가운데 정렬 */
-    margin: 10px;
+.parent {
+    visibility: hidden;
+    height: 9vh;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    display: grid;
 }
-.item {
+
+.first,
+.second,
+.third,
+.fourth,
+.fifth,
+.sixth {
+    position: absolute;
+    margin-right: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 40px;
-    /* padding: 10px; */
-    height: 8vh;
-    /* border: 1px solid steelblue; */
+    border: solid 1px black;
 }
-.item:hover {
+
+.first {
+    width: 9vh;
+    height: 8vh;
+}
+.second,
+.third {
+    width: 50px;
+    height: 8vh;
+}
+.fourth {
+    width: 18vh;
+    height: 8vh;
+}
+.fifth {
+    width: 18vh;
+    height: 8vh;
+}
+.sixth {
+    width: 9vh;
+    height: 8vh;
+}
+.new:hover {
     cursor: pointer;
 }
-.item:nth-child(3) {
-    grid-column: span 2;
-}
-.item:nth-child(26) {
-    grid-column: span 2;
-}
 button {
-    margin-top: 10px;
-    margin-right: 10px;
-    font-size: large;
-    width: 100px;
-    height: 60px;
+    height: 3vh;
+    width: 5vh;
 }
-.green {
-    background: green;
+#next {
+    margin: 0 auto;
 }
-.red {
-    background: lightcoral;
-}
-.yellow {
-    background: yellow;
-}
-.base {
-    border: 1px solid black;
-    /* width: 50px; */
-}
-.entrance {
-    width: 50px;
-}
-.exit {
-    width: 50px;
+.border {
+    margin-top: 15px;
+    text-align: center;
+    margin-left: 10%;
+    width: 80%;
+    height: 65vh;
+    border: black 2px solid;
+    /* justify-content: center; */
+    /* align-items: center; */
 }

@@ -7,19 +7,44 @@
         <title>Document</title>
         <link href="table.css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     </head>
     <body>
         <img alt="메인로고" id="main_logo" src="/images/restraunt_png.png" />
         <div id="place_name_div">
             <span id="place_name"></span> <span id="table_info"></span>
         </div>
-        <div id="container">
+        <!-- <div class="parent"></div> -->
+        <div class="parent">
+            <div class="div first origin" id="_table">
+                <span contenteditable="false">n</span>번 테이블44
+            </div>
+
+            <div class="div second origin" id="_entrance">입<br />구</div>
+
+            <div class="div third origin" id="_exit">출<br />구</div>
+
+            <div class="div fourth origin" id="_kitchen">주방</div>
+
+            <div id="_toilet" class="div fifth origin">화장실</div>
+            <div id="_room" class="div sixth origin">
+                <span contenteditable="false">n</span>번 룸
+            </div>
+            <button class="origin" id="modify">글자 수정</button>
+            <button class="origin" id="next">다음</button>
+            <button class="origin" id="cancel">취소</button>
+        </div>
+        <div class="border"></div>
+        <button id="next">다음</button>
+        <button id="cancel">취소</button>
+        <!-- <div id="container">
             <div id="body">
                 <div id="table">
                     <div class="item red">1번테이블</div>
                     <div class="item red">11번테이블</div>
                     <div class="item base">주방</div>
-                    <!-- <div class="item base">주방</div> -->
                     <div class="item green">1번 룸</div>
                     <div class="item green">1번 룸</div>
                     <div class="item green">2번 룸</div>
@@ -46,7 +71,6 @@
                     <div class="item red">3번테이블</div>
                     <div class="item green">4번테이블</div>
                     <div class="item base">화장실</div>
-                    <!-- <div class="item base">화장실</div> -->
                     <div class="item red">5번테이블</div>
                     <div class="item red">6번테이블</div>
                     <div class="item yellow">7번테이블</div>
@@ -57,7 +81,34 @@
                     <button id="cancel">취소</button>
                 </div>
             </div>
-        </div>
+        </div> -->
+        <script>
+            // Import the functions you need from the SDKs you need
+            // import { initializeApp } from "firebase/app";
+            // import { getAnalytics } from "firebase/analytics";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                apiKey: "AIzaSyBHcQEZEGb4dUZoyYqC98ChSfkKfi0BRUs",
+                authDomain: "restaurantinme.firebaseapp.com",
+                projectId: "restaurantinme",
+                storageBucket: "restaurantinme.appspot.com",
+                messagingSenderId: "429432477693",
+                appId: "1:429432477693:web:758dae2b839e9b294e6b94",
+                measurementId: "G-88E9EB3MVC",
+            };
+            firebase.initializeApp(firebaseConfig);
+
+            var db = firebase.firestore();
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            // Initialize Firebase
+            // const app = initializeApp(firebaseConfig);
+            // const analytics = getAnalytics(app);
+        </script>
         <script src="./table.js"></script>
     </body>
 </html>

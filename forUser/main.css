@@ -94,7 +94,7 @@
     position: absolute;
     width: 300px;
     height: 600px;
-    background: chocolate;
+    background: grey;
 }
 img:hover {
     cursor: pointer;

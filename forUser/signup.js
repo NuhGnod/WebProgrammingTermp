@@ -86,9 +86,11 @@ function click_signup() {
             .set(userInfo)
             .then(() => {
                 console.log(`유저 정보 저장 성공`);
+            })
+            .then(() => {
+                open("./login.html", "_self");
             });
         //유효성 검사가 통과되면 firestore에 데이터 저장후, 로그인 페이지로 이동.
-        open("./login.html", "_self");
     } else {
         alert(`입력을 다시 확인해주세요.`);
     }

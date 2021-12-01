@@ -91,8 +91,8 @@ function init() {
             var places = new kakao.maps.services.Places(); //검색 기능을 위한 api
             map = new kakao.maps.Map(container, curOptions); //초기에보여질 지도
 
-            let imageSize = new kakao.maps.Size(160, 160); //마커 이미지 크기
-            let imageOption = { offset: new kakao.maps.Point(81, 94) }; //마커내 이미지위치
+            let imageSize = new kakao.maps.Size(40, 40); //마커 이미지 크기
+            let imageOption = { offset: new kakao.maps.Point(21, 36) }; //마커내 이미지위치
 
             blue_mark = new kakao.maps.MarkerImage( //파란색 마커를 생성한다. //검색된 가게를 나타냄
                 blue_imageSrc,
@@ -136,10 +136,12 @@ function init() {
             cMarker = marker;
             // marker.setMap(map); //현재 내위치 마커 표시.
             option = {};
+            let key = "";
             var callback = function (result, status, pagination) {
                 //kakao map api 를 사용하기위한 callback함수
 
                 if (status === kakao.maps.services.Status.OK) {
+                    console.log(`asdasdasdsadasd`);
                     if (pagination.totalCount != 0) {
                         //검색 결과가 있는경우
                         console.log(`callback`);
@@ -172,6 +174,7 @@ function init() {
                             );
                         }
                         $(".li").on("click", click_li); //각 li에 click_li함수를 달아준다.
+                    } else {
                     }
 
                     nextBtn.addEventListener("click", function () {
@@ -195,10 +198,46 @@ function init() {
                             // 있으면 이전 페이지를 검색한다.
                         }
                     });
+                } else {
+                    let search_results = [];
+                    //검색 목록과 일치하는 db의 가게리스트를 받아온다.
+                    db.collection("Table_infos")
+                        .get()
+                        .then((query) => {
+                            query.forEach((doc) => {
+                                console.log(key);
+                                console.log(doc.data()._placeName);
+                                if (doc.data()._placeName == key) {
+                                    //검색 키워드와 일치.
+                                    let arr = [];
+                                    arr.push(doc.data()._address); //주소
+                                    arr.push(doc.data()._name); //대표자 이름
+                                    arr.push(doc.data()._phoneNumber); //가게번호
+                                    arr.push(doc.data()._placeName); //가게이름
+                                    arr.push(doc.id); //timestamp -> 문서 id
+                                    search_results.push(arr);
+                                }
+                            });
+                        })
+                        .then(() => {
+                            console.log(search_results);
+                            $("ul").children().remove(); //영억을 모두 지우고 새 결과인 목록들로 다시 구성하기 위함.
+                            for (let i = 0; i < search_results.length; i++) {
+                                console.log(search_results[i]);
+                                let id = JSON.stringify(search_results[i]);
+                                //검색 된 모든 가게위치를 마커로 달아주다.
+
+                                //검색한 결과인 result 를 li태그로 목록영억에 달아준다.
+                                $("ul").append(
+                                    `<li class="li" id='${id}'>${search_results[i][3]} (${search_results[i][0]})</li>`
+                                );
+                                $(".li").on("click", click_li); //각 li에 click_li함수를 달아준다.
+                            }
+                        });
                 }
             };
             let search = document.getElementById("search");
-            let key = "";
+
             search.addEventListener("click", function () {
                 hideMarkers(); //지도의 마커 초기화 후 검색 시작.
                 //키워드로 검색하는 함수
@@ -222,7 +261,7 @@ function init() {
     }
 }
 storageRef //firebase storage api 사용.
-    .child("images/" + `blue_mark.png`) //blue_mark
+    .child("images/" + `large_blue_mark.png`) //blue_mark
     .getDownloadURL()
     .then(function (url) {
         // `url` is the download URL for 'images/stars.jpg'
@@ -239,7 +278,7 @@ storageRef //firebase storage api 사용.
     })
     .then(() => {
         storageRef //firebase storage api 사용.
-            .child("images/" + `red_mark.png`) //red_mark
+            .child("images/" + `large_red_mark.png`) //red_mark
             .getDownloadURL()
             .then(function (url) {
                 // `url` is the download URL for 'images/stars.jpg'
@@ -256,7 +295,7 @@ storageRef //firebase storage api 사용.
             })
             .then(() => {
                 storageRef //firebase storage api 사용.
-                    .child("images/" + `yellow_mark.png`) //yellow_mark
+                    .child("images/" + `large_yellow_mark.png`) //yellow_mark
                     .getDownloadURL()
                     .then(function (url) {
                         // `url` is the download URL for 'images/stars.jpg'
@@ -297,7 +336,7 @@ function addMarker(position, image, id) {
 
     //마커 위의 인포윈도우 텍스트
     info = JSON.parse(id);
-    let content = `<div style="padding:5px;">${info.place_name}</div>`;
+    let content = `<div style="padding:10px;">${info.place_name}</div>`;
     let removeAble = true;
     let infoWindow = new kakao.maps.InfoWindow({
         content: content,
@@ -360,7 +399,7 @@ function click_li() {
     let info = [];
     info = JSON.parse(this.id);
 
-    // console.log(info.x);
+    console.log(this);
     setCenter(info.x, info.y);
     sessionStorage.setItem("restraunt_info", this.id);
 }

@@ -25,7 +25,9 @@ function click_login() {
                 //모든 doc의 id값은 회원가입시 입력한 id로 되어있다.
                 let _pw = doc.data()._pw;
                 let _id = doc.data()._id;
-                if (cId == _id && cPw == _pw) {
+                let _classfication = doc.data()._classfication;
+
+                if (cId == _id && cPw == _pw && _classfication == "user") {
                     //db의 id,pw 와 내가 입력한 id,pw가 일치.
                     //id는 유일하다.
                     login_flag = true;
@@ -47,8 +49,6 @@ function click_login() {
             } else {
                 alert(`아이디 또는 비밀번호가 일치하지 않습니다.`);
             }
-            //테스트를 위해 메인으로 돌아가기 위해 구현해논것, 나중엔 지운다.
-            open("./index.html", "_self");
         });
 }
 function click_signup() {
