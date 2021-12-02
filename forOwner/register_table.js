@@ -318,6 +318,7 @@ function click_next() {
             });
         })
         .then(() => {
+            infoSet._id = sessionStorage.getItem("login_id");
             db.collection("Table_infos")
                 .doc(timestamp)
                 .set(infoSet)
