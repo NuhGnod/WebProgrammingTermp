@@ -8,13 +8,41 @@ let login = document.getElementById("login"); //로그인 버튼
 let logout = document.getElementById("logout"); //로그아웃 버튼
 let singup = document.getElementById("signup"); //회원가입 버튼
 let searchBtn = document.getElementById("search"); //검색 버튼
-
-let for_test = document.getElementById("for_test"); //메인의 검색된 가게 리스트 중 첫번째 가게이다. 테스트를 위해 3개의 li중 첫번째만 클릭이벤트를 달아놓는다.
-let for_test_ = document.getElementById("for_test_"); //메인의 마이 페이지 영역의 내 가게 리스트이다. 테스트를 위해 첫번째 가게에만 클릭이벤트를 달아놓았다.
+let login_flag = false; //로그인 여부
+let modify_name = document.getElementById("change_my_name_btn"); //이름 정보 수정버튼
+let modify_phone_number = document.getElementById("change_my_phone_number_btn"); //번호 정보 수정버튼
+let myName;
+let myPhoneNumber;
 function init() {
     if (localStorage.getItem("auto_login")) {
+        login_flag = true;
         let login_id = localStorage.getItem("login_id");
         sessionStorage.setItem("login_id", login_id);
+    }
+    if (sessionStorage.getItem("login")) login_flag = true;
+    if (login_flag) {
+        let login_id = sessionStorage.getItem("login_id"); //현재 로그인 id
+        console.log(login_id);
+        let idx = 0;
+        db.collection("Users")
+            .doc(login_id)
+            .collection("restaurants")
+            .get()
+            .then((query) => {
+                query.forEach((doc) => {
+                    let placeName;
+                    let address;
+                    address = doc.data()._address;
+                    placeName = doc.data()._place_name;
+                    console.log(doc.data()._address);
+                    let li = $(
+                        `<li class="li" id="li${idx}">${placeName} (${address}) </li>`
+                    );
+                    li.on("click", click_li);
+                    idx++;
+                    $("#ulList").append(li);
+                });
+            });
     }
 }
 init();
@@ -38,11 +66,45 @@ function click_signup() {
 function click_li() {
     //검색결과로 보여지는 목록중 하나를 클릭 했을 시,
     let info = [];
-
+    console.log(this);
+    sessionStorage.setItem("select_table", this.innerHTML);
     open("./restraunt_table.html", "_self"); //그 가게의 테이블 현황(모습)페이지로 넘어간다.
 }
+function click_modify_name() {
+    //마이페이지 의 이름 정보 수정
+    let newName = document.getElementById("change_my_name"); //변경할 이름
+    let id = sessionStorage.getItem("login_id"); //로그인한 아이디
+    db.collection("Users")
+        .doc(id)
+        .update({ _username: newName.value })
+        .then(() => {
+            db.collection("Users")
+                .doc(id)
+                .get()
+                .then((doc) => {
+                    myName.innerHTML = doc.data()._username;
+                    myPhoneNumber.innerHTML = doc.data()._phone_number;
+                });
+        });
+}
+function click_modify_phone_number() {
+    //마이페이지 의 번호 정보 수정
+    let newPhoneNumber = document.getElementById("change_my_phone_number"); //변경할 이름
+    let id = sessionStorage.getItem("login_id"); //로그인한 아이디
+    db.collection("Users")
+        .doc(id)
+        .update({ _phone_number: newPhoneNumber.value })
+        .then(() => {
+            db.collection("Users")
+                .doc(id)
+                .get()
+                .then((doc) => {
+                    myName.innerHTML = doc.data()._username;
+                    myPhoneNumber.innerHTML = doc.data()._phone_number;
+                });
+        });
+}
 function click_option() {
-    let login_flag;
     if (localStorage.getItem("auto_login")) {
         //자동 로그인 되있다면 로그인버튼 없앰 -> 로그인 되있는 상태이므로,
         login_flag = true;
@@ -63,16 +125,62 @@ function click_my_page() {
     let div = document.getElementById("my_page_div_wrapper");
     div.style.display =
         div.style.display == "inline-block" ? "none" : "inline-block";
+    myName = document.getElementById("my_name");
+    myPhoneNumber = document.getElementById("my_phone_number");
+    let login_id = sessionStorage.getItem("login_id");
+    let idx = 0;
+    $("#ulRestaurantInfo").children().remove();
+    db.collection("Users")
+        .doc(login_id)
+        .collection("restaurants")
+        .get()
+        .then((query) => {
+            query.forEach((doc) => {
+                let placeName;
+                let address;
+                address = doc.data()._address;
+                placeName = doc.data()._place_name;
+                console.log(doc.data()._address);
+                let li = $(
+                    `<span class="restraunt_info" id="restraunt_info${idx}">${placeName} (${address})</span>`
+                );
+                // let li = $(
+                //     `<li class="restraunt_info" id="restraunt_info${idx}">${placeName} (${address}) </li>`
+                // );
+                li.on("click", click_restraunt_page);
+                idx++;
+                $("#ulRestaurantInfo").append(li);
+            });
+        })
+        .then(() => {
+            db.collection("Users")
+                .doc(login_id)
+                .get()
+                .then((doc) => {
+                    myName.innerHTML = doc.data()._username;
+                    myPhoneNumber.innerHTML = doc.data()._phone_number;
+                });
+        });
 }
 function click_restraunt_page() {
-    //현재는 테스트를 위해 첫번째 가게만클릭시 이동.
+    alert(`미구현!`);
+    //firebase 의 firestore 구성을 잘못 짜서 구현불가.
     //클릭시, 그 가게의 정보 수정 페이지로 이동한다.
-    open("./restraunt_info.html", "_self");
+    // console.log(this);
+    // sessionStorage.setItem("restaurant_page_info", this.innerHTML);
+    // open("./restraunt_info.html", "_self");
 }
 function click_search() {
+    if (!login_flag) {
+        alert(`로그인 해주세요.`);
+        return;
+    }
     //메인의 검색바에서 등록할 가게 이름을 입력후 등록버튼을 누른경우
     let word = document.getElementById("search_restraunt").value; //검색바에서 입력된 단어.
-
+    if (word.length == 0) {
+        alert(`단어를 입력해주세요.`);
+        return;
+    }
     sessionStorage.setItem("register_name", word);
     open("register.html", "_self");
 }
@@ -84,6 +192,6 @@ close_my_page.addEventListener("click", click_my_page);
 login.addEventListener("click", click_login);
 logout.addEventListener("click", click_logout);
 singup.addEventListener("click", click_signup);
-for_test.addEventListener("click", click_li);
-for_test_.addEventListener("click", click_restraunt_page);
+modify_name.addEventListener("click", click_modify_name);
+modify_phone_number.addEventListener("click", click_modify_phone_number);
 searchBtn.addEventListener("click", click_search);

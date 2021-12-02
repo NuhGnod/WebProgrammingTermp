@@ -70,7 +70,7 @@
 #my_page_div {
     /* display: none; */
     padding: 20px;
-    width: 500px;
+    width: 700px;
     height: 500px;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -78,7 +78,7 @@
     background: grey;
 }
 .restraunt_info {
-    border: 1px black solid;
+    /* border: 1px black solid; */
     display: block;
     /* margin-bottom: 1px; */
 }
@@ -120,7 +120,9 @@ img:hover {
     height: 30px;
     width: 30px;
 }
-
+.restraunt_info {
+    margin-top: 5px;
+}
 .li:hover {
     cursor: pointer;
 }

@@ -81,7 +81,7 @@
                             />
 
                             <div class="item">
-                                <span id="my_name">이름 : 김동훈</span>
+                                <span>이름 : <sapn id="my_name"></sapn> </span>
                             </div>
                             <div class="item">
                                 <input id="change_my_name" />
@@ -92,8 +92,9 @@
                                 />
                             </div>
                             <div class="item">
-                                <span id="my_phone_number">
-                                    핸드폰 번호 : 010-1234-5678
+                                <span>
+                                    핸드폰 번호 :
+                                    <span id="my_phone_number"></span>
                                 </span>
                             </div>
                             <div class="item">
@@ -110,7 +111,8 @@
                                 <span>가게 이름</span>
                             </div>
                             <div class="item">
-                                <span id="for_test_" class="restraunt_info"
+                                <ul id="ulRestaurantInfo"></ul>
+                                <!-- <span id="for_test_" class="restraunt_info"
                                     >첫 번째 가게이름</span
                                 ><br />
                                 <span class="restraunt_info"
@@ -121,15 +123,8 @@
                                 ><br />
                                 <span class="restraunt_info"
                                     >n 번째 가게이름</span
-                                ><br />
+                                ><br /> -->
                             </div>
-                            <button id="next_page" class="button">
-                                다음 가게 페이지
-                            </button>
-                            <button id="cancel_order" class="button">
-                                주문취소
-                                <!-- 주문 후 5분 내로만 취소가능 -->
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -149,11 +144,7 @@
 
                 <div id="search_list">
                     내 가게 리스트!
-                    <ul class="list">
-                        <li id="for_test" class="li">1</li>
-                        <li class="li">12</li>
-                        <li class="li">123</li>
-                    </ul>
+                    <ul class="list" id="ulList"></ul>
                     <button id="nextBtn">다음페이지</button>
                     <button id="prevBtn">이전페이지</button>
                 </div>
