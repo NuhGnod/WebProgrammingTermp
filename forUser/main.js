@@ -8,6 +8,9 @@ let move = document.getElementById("move"); //이동 버튼
 let login = document.getElementById("login"); //로그인 버튼
 let logout = document.getElementById("logout"); //로그아웃 버튼
 let singup = document.getElementById("signup"); //회원가입 버튼
+let modify_name = document.getElementById("change_my_name_btn"); //이름 정보 수정버튼
+let modify_phone_number = document.getElementById("change_my_phone_number_btn"); //번호 정보 수정버튼
+let order_cancel = document.getElementById("order_cancel"); //주문취소버튼
 let container = document.getElementById("map"); //지도가 보여질 map div
 var map;
 let markers = []; //마커들을 제어하기 위한 배열.
@@ -18,7 +21,8 @@ let yellow_mark;
 let blue_imageSrc = "";
 let red_imageSrc = "";
 let yellow_imageSrc = ";";
-
+let myName;
+let myPhoneNumber;
 function init() {
     //페이지의 이미지를 firebase storage에서 가져와 로딩한다.
 
@@ -452,11 +456,110 @@ function click_option() {
     div.style.display =
         div.style.display == "inline-block" ? "none" : "inline-block";
 }
+function click_modify_name() {
+    //마이페이지 의 이름 정보 수정
+    let newName = document.getElementById("change_my_name"); //변경할 이름
+    let id = sessionStorage.getItem("login_id"); //로그인한 아이디
+    db.collection("Users")
+        .doc(id)
+        .update({ _username: newName.value })
+        .then(() => {
+            db.collection("Users")
+                .doc(id)
+                .get()
+                .then((doc) => {
+                    myName.innerHTML = doc.data()._username;
+                    myPhoneNumber.innerHTML = doc.data()._phone_number;
+                });
+        });
+}
+function click_modify_phone_number() {
+    //마이페이지 의 번호 정보 수정
+    let newPhoneNumber = document.getElementById("change_my_phone_number"); //변경할 이름
+    let id = sessionStorage.getItem("login_id"); //로그인한 아이디
+    db.collection("Users")
+        .doc(id)
+        .update({ _phone_number: newPhoneNumber.value })
+        .then(() => {
+            db.collection("Users")
+                .doc(id)
+                .get()
+                .then((doc) => {
+                    myName.innerHTML = doc.data()._username;
+                    myPhoneNumber.innerHTML = doc.data()._phone_number;
+                });
+        });
+}
+function click_order_cancel() {
+    let id = sessionStorage.getItem("login_id");
+    let info = sessionStorage.getItem("restraunt_info");
+    info = JSON.parse(info);
+    let place_name = info[3];
+    let address = info[0];
+    let curTime = new Date().getTime();
+    let owner_id = sessionStorage.getItem("owner_id");
+    let orderTimestamp = 0;
+    let timestamp; //db의 가게주인의  가게 정보 doc
+    db.collection("Users")
+        .doc(id)
+        .collection("order")
+        .doc(place_name)
+        .get()
+        .then((doc) => {
+            orderTimestamp = Number(doc.data()._orderTime);
+        })
+        .then(() => {
+            console.log(curTime);
+            console.log(orderTimestamp);
+
+            if (curTime - orderTimestamp <= 300000) {
+                //취소 가능
+                db.collection("Users")
+                    .doc(id)
+                    .collection("order")
+                    .doc(place_name)
+                    .update({ _flag: false })
+                    .then(() => {
+                        db.collection("Users")
+                            .doc(owner_id)
+                            .collection("restaurants")
+                            .get()
+                            .then((query) => {
+                                query.forEach((doc) => {
+                                    if (doc.data()._address == address) {
+                                        //일치
+                                        timestamp = doc.id;
+                                    }
+                                });
+                            })
+                            .then(() => {
+                                db.collection("Users")
+                                    .doc(owner_id)
+                                    .collection("restaurants")
+                                    .doc(timestamp)
+                                    .collection("order")
+                                    .doc(orderTimestamp.toString())
+                                    .delete()
+                                    .then(() => {
+                                        alert(`주문이 취소 되었습니다.`);
+                                        window.location.reload();
+                                    });
+                            });
+                    });
+            } else {
+                alert(`주문 후 5분이 지나 취소가 불가능합니다.`);
+            }
+        });
+}
 function click_my_page() {
     //옵션설정의 마이페이지 누르기
+
     let div = document.getElementById("my_page_div_wrapper");
     div.style.display =
         div.style.display == "inline-block" ? "none" : "inline-block";
+
+    myName = document.getElementById("my_name");
+    myPhoneNumber = document.getElementById("my_phone_number");
     let id = sessionStorage.getItem("login_id");
     let placeName;
     let orderTime;
@@ -468,40 +571,56 @@ function click_my_page() {
     let price = document.getElementById("price");
     let arrival_time = document.getElementById("arrival_time");
     let place_name = document.getElementById("place_name");
+    let flag = false;
     db.collection("Users")
         .doc(id)
-        .collection("order")
         .get()
-        .then((query) => {
-            query.forEach((doc) => {
-                console.log(doc.data()._flag);
-                if (doc.data()._flag) {
-                    placeName = doc.id;
-                    orderTime = doc.data()._orderTime;
-                    arrivalTime = doc.data()._arrivalTime;
-                    orderMenu = doc.data()._orderMenu;
-                    orderPrice = doc.data()._orderPrice;
-                }
-            });
+        .then((doc) => {
+            myName.innerHTML = doc.data()._username;
+            myPhoneNumber.innerHTML = doc.data()._phone_number;
         })
         .then(() => {
-            console.log(orderMenu);
-            menu.innerHTML = "";
-            for (let i = 0; i < orderMenu.length; i++) {
-                console.log(menu.innerHTML);
-                menu.innerHTML += orderMenu[i] + "<br/>";
-                arrival_time.innerHTML = arrivalTime;
-                place_name.innerHTML += placeName;
-                sum += Number(orderPrice[i]);
-            }
+            db.collection("Users")
+                .doc(id)
+                .collection("order")
+                .get()
+                .then((query) => {
+                    query.forEach((doc) => {
+                        console.log(doc.data()._flag);
+                        if (doc.data()._flag) {
+                            flag = true;
+                            placeName = doc.id;
+                            orderTime = doc.data()._orderTime;
+                            arrivalTime = doc.data()._arrivalTime;
+                            orderMenu = doc.data()._orderMenu;
+                            orderPrice = doc.data()._orderPrice;
+                        }
+                    });
+                })
+                .then(() => {
+                    if (flag) {
+                        menu.innerHTML = "";
+                        for (let i = 0; i < orderMenu.length; i++) {
+                            console.log(menu.innerHTML);
+                            menu.innerHTML += orderMenu[i] + "<br/>";
+                            arrival_time.innerHTML = arrivalTime;
+                            place_name.innerHTML += placeName;
+                            sum += Number(orderPrice[i]);
+                        }
 
-            price.innerHTML = sum + " 원";
-            arrival_time.innerHTML = arrivalTime;
-            place_name.innerHTML = placeName;
+                        price.innerHTML = sum + " 원";
+                        arrival_time.innerHTML = arrivalTime;
+                        place_name.innerHTML = placeName;
+                    } else {
+                        console.log(`데이터 없음.`);
+                    }
+                });
         });
 }
 function search() {}
-
+order_cancel.addEventListener("click", click_order_cancel);
+modify_name.addEventListener("click", click_modify_name);
+modify_phone_number.addEventListener("click", click_modify_phone_number);
 option.addEventListener("click", click_option);
 close_option.addEventListener("click", click_option);
 my_page.addEventListener("click", click_my_page);

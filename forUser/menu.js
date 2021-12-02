@@ -78,6 +78,7 @@ function click_cancel() {
     } else {
         return;
     }
+
     history.go(-1);
     // close();
 }
@@ -89,8 +90,8 @@ function click_next() {
     let table_info = sessionStorage.getItem("table_info");
     let infoSet = {};
     infoSet._flag = false; //실제로 주문 했는지 여부, 결게까지 진행되면 true로 바뀜
-    infoSet._menu = checkMenus;
-    infoSet._price = checkPrices;
+    infoSet._orderMenu = checkMenus;
+    infoSet._orderPrice = checkPrices;
     infoSet._tableInfo = table_info;
     db.collection("Users")
         .doc(login_id)

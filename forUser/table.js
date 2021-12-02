@@ -143,12 +143,61 @@ function click_next() {
     console.log(`next`);
     console.log(document.getElementById("table_info").innerHTML.split(":")[1]);
     //좌석 선택후, 메뉴페이지로 이동한다.
-    let table_info = document
+    let table_info = document //nn번 테이블
         .getElementById("table_info")
         .innerHTML.split(":")[1]
         .trim();
     sessionStorage.setItem("table_info", table_info);
     sessionStorage.setItem("timestamp", timestamp);
-    open("./menu.html", "_self");
+    let info = sessionStorage.getItem("restraunt_info"); //선택된 가게의 이름을 메인로고 아래에 보여준다.
+    info = JSON.parse(info);
+    let place_name = info[3];
+    let place_address = info[0];
+    let index = table_info //n번 테이블의 n
+        .split(" ")[0]
+        .substr(0, table_info.split(" ")[0].length - 1);
+    let kindTable = table_info.split(" ")[1]; //n번 테이블 의 테이블
+    let blocks = [];
+    let idxs = [];
+    let colors = [];
+    let ownerId;
+    console.log(index);
+    console.log(kindTable);
+    db.collection("Table_infos")
+        .doc(timestamp)
+        .get()
+        .then((doc) => {
+            ownerId = doc.data()._id;
+            colors = doc.data()._infoColor;
+            blocks = doc.data()._infoBlock;
+            idxs = doc.data()._infoIdx;
+        })
+        .then(() => {
+            for (let i = 0; i < colors.length; i++) {
+                if (
+                    blocks[i].trim() == kindTable.trim() &&
+                    idxs[i].trim() == index.trim()
+                ) {
+                    colors[i] = "yellow"; //현재 예약중.
+                }
+            }
+            db.collection("Users")
+                .doc(ownerId)
+                .collection("restaurants")
+                .doc(timestamp)
+                .collection("table_info")
+                .doc("table_info")
+                .update({ _infoColor: colors })
+                .then(() => {
+                    db.collection("Table_infos")
+                        .doc(timestamp)
+                        .update({ _infoColor: colors })
+                        .then(() => {
+                            open("./menu.html", "_self");
+
+                            console.log(colors);
+                        });
+                });
+        });
 }
 init();

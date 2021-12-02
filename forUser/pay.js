@@ -17,8 +17,8 @@ function init() {
         .doc(place_name)
         .get()
         .then((doc) => {
-            order_menus = doc.data()._menu;
-            order_prices = doc.data()._price;
+            order_menus = doc.data()._orderMenu;
+            order_prices = doc.data()._orderPrice;
         })
         .then(() => {
             for (let i = 0; i < num; i++) {
@@ -58,6 +58,16 @@ function click_pay() {
     orderSet._orderPrice = order_prices;
     orderSet._require = require;
     orderSet._arrivalTime = arrivalTime;
+    orderSet._table = table_info;
+    let index = table_info //n번 테이블의 n
+        .split(" ")[0]
+        .substr(0, table_info.split(" ")[0].length - 1);
+    let kindTable = table_info.split(" ")[1]; //n번 테이블 의 테이블
+    let blocks;
+    let idxs;
+    let colors;
+    console.log(index);
+    console.log(kindTable);
     db.collection("Table_infos")
         .get()
         .then((query) => {
@@ -66,6 +76,10 @@ function click_pay() {
                     //내가 선택한 가게와 db의 가게정보 일치
                     ownerId = doc.data()._id;
                     ownerTimestamp = doc.id;
+                    sessionStorage.setItem("owner_id", ownerId);
+                    blocks = doc.data()._infoBlock;
+                    idxs = doc.data()._infoIdx;
+                    colors = doc.data()._infoColor;
                 }
             });
         })
@@ -76,23 +90,50 @@ function click_pay() {
                 .collection("restaurants")
                 .doc(ownerTimestamp)
                 .collection("order")
-                .doc(timestamp) //소비자의 주문 시간. 마이크로 초 -> 주문 취소를 위함. 5분 = 300000000 마이크로초
+                .doc(timestamp) //소비자의 주문 시간. 밀리 초 -> 주문 취소를 위함. 5분 = 300000 밀리초
                 .set(orderSet)
                 .then(() => {
                     console.log(`#2`);
                     orderSet._flag = true;
-                    orderSet._orderTime = timestamp; //단위 마이크로 초
+                    orderSet._orderTime = timestamp; //단위 밀리 초
                     orderSet._tableInfo = table_info;
-                    db.collection("Users")
+                    db.collection("Users") //예약 색 바꾸기.
                         .doc(login_id)
                         .collection("order")
                         .doc(place_name)
                         .set(orderSet)
                         .then(() => {
-                            alert("결제되었습니다.");
-                            // sessionStorage.removeItem("table_info");
-                            // sessionStorage.removeItem("restraunt_info");
-                            open("./index.html", "_self");
+                            console.log(blocks);
+                            for (let i = 0; i < blocks.length; i++) {
+                                if (
+                                    blocks[i].trim() == kindTable.trim() &&
+                                    idxs[i].trim() == index.trim()
+                                ) {
+                                    console.log("this");
+                                    //일치
+                                    colors[i] = "red"; //예약 완료.
+                                }
+                            }
+                            //table info 변경.
+                            db.collection("Users")
+                                .doc(ownerId)
+                                .collection("restaurants")
+                                .doc(ownerTimestamp)
+                                .collection("table_info")
+                                .doc("table_info")
+                                .update({ _infoColor: colors })
+                                .then(() => {
+                                    db.collection("Table_infos")
+                                        .doc(ownerTimestamp)
+                                        .update({ _infoColor: colors })
+                                        .then(() => {
+                                            console.log(colors);
+                                            alert("결제되었습니다.");
+                                            // sessionStorage.removeItem("table_info");
+                                            // sessionStorage.removeItem("restraunt_info");
+                                            open("./index.html", "_self");
+                                        });
+                                });
                         });
                 });
         });
