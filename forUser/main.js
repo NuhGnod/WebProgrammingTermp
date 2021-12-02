@@ -395,12 +395,44 @@ function click_move() {
 }
 function click_li() {
     //검색결과로 보여지는 목록중 하나를 클릭 했을 시,
-    // console.log(this);
+    console.log(this);
     let info = [];
     info = JSON.parse(this.id);
-
     console.log(this);
-    setCenter(info.x, info.y);
+    console.log(info.x);
+    if (info.x == undefined) {
+        key = info[0];
+        var callback = function (result, status, pagination) {
+            //kakao map api 를 사용하기위한 callback함수
+            if (status === kakao.maps.services.Status.OK) {
+                console.log(`asdasdasdsadasd`);
+                if (pagination.totalCount != 0) {
+                    //검색 결과가 있는경우
+                    console.log(`callback`);
+
+                    option = {
+                        //option 파라미터로 활용.
+                        center: new kakao.maps.LatLng(result[0].y, result[0].x), //검색된 결과의 경도 위도 값으로 지도를 초기화
+                        level: 3,
+                    };
+                    //검색된 결과의 첫번째 검색값으로 지도 위치를 이동시킨다.
+                    setCenter(result[0].x, result[0].y);
+                    for (let i = 0; i < result.length; i++) {
+                        let id = JSON.stringify(result[i]);
+                        //검색 된 모든 가게위치를 마커로 달아주다.
+                        addMarker(
+                            new kakao.maps.LatLng(result[i].y, result[i].x),
+                            blue_mark,
+                            id
+                        );
+                    }
+                }
+            }
+        };
+        let place = new kakao.maps.services.Places();
+        console.log(key);
+        place.keywordSearch(key, callback);
+    } else setCenter(info.x, info.y);
     sessionStorage.setItem("restraunt_info", this.id);
 }
 function click_option() {
@@ -425,6 +457,48 @@ function click_my_page() {
     let div = document.getElementById("my_page_div_wrapper");
     div.style.display =
         div.style.display == "inline-block" ? "none" : "inline-block";
+    let id = sessionStorage.getItem("login_id");
+    let placeName;
+    let orderTime;
+    let arrivalTime;
+    let orderMenu = [];
+    let orderPrice;
+    let sum = 0;
+    let menu = document.getElementById("menu");
+    let price = document.getElementById("price");
+    let arrival_time = document.getElementById("arrival_time");
+    let place_name = document.getElementById("place_name");
+    db.collection("Users")
+        .doc(id)
+        .collection("order")
+        .get()
+        .then((query) => {
+            query.forEach((doc) => {
+                console.log(doc.data()._flag);
+                if (doc.data()._flag) {
+                    placeName = doc.id;
+                    orderTime = doc.data()._orderTime;
+                    arrivalTime = doc.data()._arrivalTime;
+                    orderMenu = doc.data()._orderMenu;
+                    orderPrice = doc.data()._orderPrice;
+                }
+            });
+        })
+        .then(() => {
+            console.log(orderMenu);
+            menu.innerHTML = "";
+            for (let i = 0; i < orderMenu.length; i++) {
+                console.log(menu.innerHTML);
+                menu.innerHTML += orderMenu[i] + "<br/>";
+                arrival_time.innerHTML = arrivalTime;
+                place_name.innerHTML += placeName;
+                sum += Number(orderPrice[i]);
+            }
+
+            price.innerHTML = sum + " 원";
+            arrival_time.innerHTML = arrivalTime;
+            place_name.innerHTML = placeName;
+        });
 }
 function search() {}
 

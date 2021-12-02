@@ -7,12 +7,15 @@
         <title>Document</title>
         <link href="pay.css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     </head>
     <body>
         <img alt="메인로고" id="main_logo" src="/images/restraunt_png.png" />
         <div>
             <label for="money">금액</label>
-            <span>15000원</span><br />
+            <span id="total_sum">15000원</span><br />
             <label for="time">도착예정시간</label>
             <input id="time" placeholder="ex) 15분" />
             <br />
@@ -24,15 +27,42 @@
             내가 선택한 메뉴 목록
             <br />
             <ul>
-                <li id="menu1">메뉴1</li>
+                <!-- <li id="menu1">메뉴1</li>
                 <li id="menu2">메뉴2</li>
                 <li id="menu3">메뉴3</li>
-                <li id="menu4">메뉴4</li>
+                <li id="menu4">메뉴4</li> -->
             </ul>
             <br />
             <button id="next">결제하기</button>
             <button id="cancel">취소</button>
         </div>
+        <script>
+            // Import the functions you need from the SDKs you need
+            // import { initializeApp } from "firebase/app";
+            // import { getAnalytics } from "firebase/analytics";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                apiKey: "AIzaSyBHcQEZEGb4dUZoyYqC98ChSfkKfi0BRUs",
+                authDomain: "restaurantinme.firebaseapp.com",
+                projectId: "restaurantinme",
+                storageBucket: "restaurantinme.appspot.com",
+                messagingSenderId: "429432477693",
+                appId: "1:429432477693:web:758dae2b839e9b294e6b94",
+                measurementId: "G-88E9EB3MVC",
+            };
+            firebase.initializeApp(firebaseConfig);
+
+            var db = firebase.firestore();
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            // Initialize Firebase
+            // const app = initializeApp(firebaseConfig);
+            // const analytics = getAnalytics(app);
+        </script>
         <script src="./pay.js"></script>
     </body>
 </html>
