@@ -49,7 +49,7 @@ function init() {
                 .doc("table_info")
                 .get()
                 .then((doc) => {
-                    // console.log(timestamp);
+                    console.log(timestamp);
                     // console.log(doc.data());
                     blocks = doc.data()._infoBlock;
                     idxs = doc.data()._infoIdx;
@@ -71,6 +71,10 @@ function init() {
                             });
                         })
                         .then(() => {
+                            console.log(orderTime);
+                            console.log(menus);
+                            console.log(infos);
+                            console.log(prices);
                             let tr = $(`<tr></tr>`);
                             for (let i = 0; i < blocks.length; i++) {
                                 let color = colors[i].trim();
