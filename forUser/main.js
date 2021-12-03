@@ -395,7 +395,10 @@ function click_signup() {
     // close();
 }
 function click_move() {
-    open("./table.html", "_self"); //그 가게의 테이블 현황(모습)페이지로 넘어간다.
+    let login_flag = sessionStorage.getItem("login");
+    if (login_flag) open("./table.html", "_self");
+    //그 가게의 테이블 현황(모습)페이지로 넘어간다.
+    else alert(`로그인 해주세요.`);
 }
 function click_li() {
     //검색결과로 보여지는 목록중 하나를 클릭 했을 시,
@@ -499,13 +502,16 @@ function click_order_cancel() {
     let curTime = new Date().getTime();
     let owner_id = sessionStorage.getItem("owner_id");
     let orderTimestamp = 0;
+    let orderTable;
     let timestamp; //db의 가게주인의  가게 정보 doc
+    let colors;
     db.collection("Users")
         .doc(id)
         .collection("order")
         .doc(place_name)
         .get()
         .then((doc) => {
+            orderTable = doc.data()._table;
             orderTimestamp = Number(doc.data()._orderTime);
         })
         .then(() => {
@@ -537,12 +543,58 @@ function click_order_cancel() {
                                     .doc(owner_id)
                                     .collection("restaurants")
                                     .doc(timestamp)
-                                    .collection("order")
-                                    .doc(orderTimestamp.toString())
-                                    .delete()
+                                    .collection("table_info")
+                                    .doc("table_info")
+                                    .get()
+                                    .then((doc) => {
+                                        let idxs = doc.data()._infoIdx;
+                                        let blocks = doc.data()._infoBlock;
+                                        colors = doc.data()._infoColor;
+                                        console.log(idxs);
+                                        for (let i = 0; i < idxs.length; i++) {
+                                            let temp =
+                                                idxs[i] +
+                                                "번 " +
+                                                blocks[i].trim();
+                                            if (temp == orderTable.trim()) {
+                                                colors[i] = "green";
+                                            }
+                                        }
+                                    })
                                     .then(() => {
-                                        alert(`주문이 취소 되었습니다.`);
-                                        window.location.reload();
+                                        db.collection("Users")
+                                            .doc(owner_id)
+                                            .collection("restaurants")
+                                            .doc(timestamp)
+                                            .collection("table_info")
+                                            .doc("table_info")
+                                            .update({ _infoColor: colors })
+                                            .then(() => {
+                                                db.collection("Table_infos")
+                                                    .doc(timestamp)
+                                                    .update({
+                                                        _infoColor: colors,
+                                                    })
+                                                    .then(() => {
+                                                        db.collection("Users")
+                                                            .doc(owner_id)
+                                                            .collection(
+                                                                "restaurants"
+                                                            )
+                                                            .doc(timestamp)
+                                                            .collection("order")
+                                                            .doc(
+                                                                orderTimestamp.toString()
+                                                            )
+                                                            .delete()
+                                                            .then(() => {
+                                                                alert(
+                                                                    `주문이 취소 되었습니다.`
+                                                                );
+                                                                window.location.reload();
+                                                            });
+                                                    });
+                                            });
                                     });
                             });
                     });

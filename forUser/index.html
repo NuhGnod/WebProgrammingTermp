@@ -89,7 +89,8 @@
                                 <label>주문상태</label>
                             </div>
                             <div class="item">
-                                <span>메뉴이름 : </span><span id="menu"></span>
+                                <span>메뉴이름 : <br /></span
+                                ><span id="menu"></span>
                                 <br />
                                 <span>가격 : </span><span id="price"></span
                                 ><br />
@@ -99,16 +100,12 @@
                                 ><span id="place_name"></span><br />
                             </div>
                             <div class="item">
-                                <span>
-                                    이름 : <span id="my_name">김동훈</span>
-                                </span>
+                                <span> 이름 : <span id="my_name"></span> </span>
                                 <br />
                                 <br />
                                 <span
                                     >핸드폰번호 :
-                                    <span id="my_phone_number">
-                                        010-1234-5678</span
-                                    >
+                                    <span id="my_phone_number"> </span>
                                 </span>
                             </div>
                             <div class="item">
@@ -125,7 +122,7 @@
                                 <input
                                     id="change_my_phone_number"
                                     type="text"
-                                    placeholder="ex) 010-1234-5678"
+                                    placeholder="ex) 01012345678"
                                 />
                                 <button id="change_my_phone_number_btn">
                                     수정하기
@@ -145,10 +142,10 @@
                     <!-- 사이드 내비 게이션 -->
                     <div id="category">
                         <!-- 지도에 보여질 가게의 카테고리를 선택한다. -->
-                        <button class="button" id="chicken">치킨</button>
+                        <!-- <button class="button" id="chicken">치킨</button>
                         <button class="button" id="pizza">피자</button>
                         <button class="button" id="school food">분식</button>
-                        <button class="button" id="meat">고기</button>
+                        <button class="button" id="meat">고기</button> -->
                     </div>
                 </div>
             </div>
@@ -168,7 +165,7 @@
                 <!-- 여러개가 검색 될수 있으므로 한번에 최대 15개까지 보여지고, -->
                 <!-- 버튼을 통해 다음, 이전 페이지로 확일 할 수있다. -->
                 <div id="search_list">
-                    검색된 음식점 리스트영역
+                    검색된 음식점 리스트
                     <ul></ul>
                     <button id="nextBtn">다음페이지</button>
                     <button id="prevBtn">이전페이지</button>
@@ -185,49 +182,7 @@
             type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffab54e001746890f92bd6f557f44381&libraries=services"
         ></script>
-        <script>
-            // if (navigator.geolocation) {
-            //     //위치 정보를 얻기
-            //     navigator.geolocation.getCurrentPosition(async function (pos) {
-            //         console.log("위도 " + pos.coords.latitude);
-            //         console.log("경도 " + pos.coords.longitude);
-            //         console.log(typeof pos.coords);
-            //         var container = document.getElementById("map");
-            //         var options = {
-            //             center: new kakao.maps.LatLng(36.3635948, 127.3490568),
-            //             level: 3,
-            //         };
-            //         var places = new kakao.maps.services.Places();
 
-            //         // var callback = function (result, status) {
-            //         //     console.log(`##`);
-            //         //     if (status === kakao.maps.services.Status.OK) {
-            //         //         console.log(result[0].x);
-            //         //         console.log(result[0].y);
-            //         //     }
-            //         // };
-            //         async function call() {
-            //             await places.keywordSearch(
-            //                 "충남대학교",
-            //                 function (result, status) {
-            //                     console.log(`##`);
-            //                     if (status === kakao.maps.services.Status.OK) {
-            //                         console.log(result[0].x);
-            //                         console.log(result[0].y);
-            //                     }
-            //                 }
-            //             );
-            //             console.log("#");
-            //         }
-            //         await call();
-            //         console.log(options.center);
-            //         var map = new kakao.maps.Map(container, options);
-            //         console.log(options.center);
-            //     });
-            // } else {
-            //     alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
-            // }
-        </script>
         <script>
             // Import the functions you need from the SDKs you need
             // import { initializeApp } from "firebase/app";
