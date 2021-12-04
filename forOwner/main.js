@@ -13,7 +13,60 @@ let modify_name = document.getElementById("change_my_name_btn"); //이름 정보
 let modify_phone_number = document.getElementById("change_my_phone_number_btn"); //번호 정보 수정버튼
 let myName;
 let myPhoneNumber;
+
+storageRef //firebase storage api 사용.
+    .child("images/" + `restraunt_png.png`) //메인로고
+    .getDownloadURL()
+    .then(function (url) {
+        // `url` is the download URL for 'images/stars.jpg'
+
+        // This can be downloaded directly:
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = "blob";
+        xhr.onload = function (event) {
+            var blob = xhr.response;
+        };
+        xhr.open("GET", url);
+
+        // Or inserted into an <img> element:
+        document.getElementById("main_logo").src = url;
+    })
+    .then(() => {
+        storageRef
+            .child("images/" + `close.png`) //닫기 버튼
+            .getDownloadURL()
+            .then(function (url) {
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = "blob";
+                xhr.onload = function (event) {
+                    var blob = xhr.response;
+                };
+                xhr.open("GET", url);
+
+                document.getElementById("close_option").src = url;
+                document.getElementById("close_my_page").src = url;
+            })
+            .then(() => {
+                storageRef
+                    .child("images/" + `option.png`) //옵션 버튼
+                    .getDownloadURL()
+                    .then(function (url) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.responseType = "blob";
+                        xhr.onload = function (event) {
+                            var blob = xhr.response;
+                        };
+                        xhr.open("GET", url);
+
+                        document.getElementById("option").src = url;
+                    })
+                    .then(init());
+            });
+    });
 function init() {
+    //스토리지 부분
+
+    //
     if (localStorage.getItem("auto_login")) {
         login_flag = true;
         let login_id = localStorage.getItem("login_id");
@@ -45,6 +98,7 @@ function init() {
             });
     }
 }
+//페이지의 이미지를 firebase storage에서 가져와 로딩한다.
 init();
 function click_login() {
     //로그인 버튼 클릭시 실행되는 함수, login페이지로 이동한다.
